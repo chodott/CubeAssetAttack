@@ -6,6 +6,10 @@ public class Player : MonoBehaviour
 {
     private CharacterController _characterController;
     private Animator _animator;
+    [SerializeField]
+    private Weapon _equippedWeapon;
+    [SerializeField]
+    private Transform _weaponTransform;
 
     private Vector2 _moveInput;
 
@@ -20,6 +24,7 @@ public class Player : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        EquipWeapon(_equippedWeapon);
     }
 
     protected void Update()
@@ -41,8 +46,23 @@ public class Player : MonoBehaviour
         _animator.SetFloat("Speed", _curVelocity.magnitude);
     }
 
+    private void EquipWeapon(Weapon weapon)
+    {
+        weapon.Equipped(_weaponTransform);
+    }
+
+
+
+
+    //InputAction
     public void OnMove(InputValue input)
     {
         _moveInput = input.Get<Vector2>();
     }
+    public void OnAttack(InputValue input)
+    {
+        if (_equippedWeapon == null) return;
+        _equippedWeapon.Launch();
+    }
+
 }

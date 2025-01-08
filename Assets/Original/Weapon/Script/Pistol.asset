@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a001a30912f9474fb2b8acd06376db2, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  _bulletObject: {fileID: 1795072395756124, guid: d223fbf886f2aa4408426d093198ef12, type: 3}
+  _equipPosition: {x: 0.062, y: -0.032, z: -0.004}
+  _equipRotation: {x: 0.49885878, y: 0.49935052, z: 0.4993069, w: 0.50247556}
+  _name: Pistol
+  power: 5
