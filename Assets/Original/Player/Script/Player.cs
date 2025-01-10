@@ -1,17 +1,28 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
     private CharacterController _characterController;
     private Animator _animator;
+
+    //BuildSystem
+    private SphereCollider _sphereCollider;
+    [SerializeField]
+    private Button _buildButton;
+    private Camera _aimCamera;
+
+    //WeaponSystem
     [SerializeField]
     private Weapon _equippedWeapon;
     [SerializeField]
     private Transform _weaponTransform;
 
     private Vector2 _moveInput;
+    private Vector2 _rotateInput;
+    private float _rotateSensitivity = 10.0f;
 
     private Vector3 _moveDirection;
     private Vector3 _curVelocity;
@@ -24,6 +35,8 @@ public class Player : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        _sphereCollider = GetComponent<SphereCollider>();
+        _aimCamera = transform.Find("Camera").GetComponent<Camera>();
         EquipWeapon(_equippedWeapon);
     }
 
@@ -44,15 +57,36 @@ public class Player : MonoBehaviour
         _characterController.Move(movement);
 
         _animator.SetFloat("Speed", _curVelocity.magnitude);
+
+        //BuildSystem
+        RaycastHit hit;
+        if (Physics.Raycast(_aimCamera.transform.position, _aimCamera.transform.forward, out hit, 2.0f))
+        {
+            if (hit.collider.CompareTag("BuildPlatform"))
+            {
+                _buildButton.interactable = true;
+            }
+
+            else if(hit.collider.CompareTag("Enemy"))
+            {
+                _equippedWeapon.Launch(transform);
+            }
+        
+        }
+        else _buildButton.interactable = false;
+
+
+        float touchX = _rotateInput.x * _rotateSensitivity * Time.deltaTime;
+        float touchY = _rotateInput.y * _rotateSensitivity * Time.deltaTime;
+
+        transform.Rotate(Vector3.up, touchX);
+        transform.Rotate(transform.right, touchY);
     }
 
     private void EquipWeapon(Weapon weapon)
     {
         weapon.Equipped(_weaponTransform);
     }
-
-
-
 
     //InputAction
     public void OnMove(InputValue input)
@@ -62,7 +96,13 @@ public class Player : MonoBehaviour
     public void OnAttack(InputValue input)
     {
         if (_equippedWeapon == null) return;
-        _equippedWeapon.Launch();
+        _equippedWeapon.Launch(transform);
+    }
+
+    public void OnRotate(InputValue input)
+    {
+        _rotateInput = input.Get<Vector2>();
+
     }
 
 }

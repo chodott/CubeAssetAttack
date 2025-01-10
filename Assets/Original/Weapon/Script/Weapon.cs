@@ -15,11 +15,11 @@ public class Weapon : MonoBehaviour
         
     }
 
-    public void Launch()
+    public void Launch(Transform launchTransform)
     {
-        Vector3 directionVector = transform.forward;
+        Vector3 directionVector = launchTransform.forward;
         GameObject bullet = Instantiate<GameObject>(_weaponInfo.Bullet);
-        bullet.transform.position = transform.position + directionVector;
+        bullet.transform.position = launchTransform.position + directionVector;
         bullet.transform.forward = directionVector;
     }
 
