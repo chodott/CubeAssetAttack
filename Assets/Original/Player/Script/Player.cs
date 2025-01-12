@@ -66,10 +66,11 @@ public class Player : MonoBehaviour
             {
                 _buildButton.interactable = true;
             }
+            else _buildButton.interactable = false;
 
-            else if(hit.collider.CompareTag("Enemy"))
+            if(hit.collider.CompareTag("Enemy"))
             {
-                _equippedWeapon.Launch(transform);
+                _equippedWeapon.Launch(_aimCamera.transform);
             }
         
         }

@@ -4,23 +4,36 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField]
     private ScriptableWeapon _weaponInfo;
+    private float _reloadSaveTime;
+    private bool _bCanLaunch = true;
     void Start()
     {
         
     }
 
   
-    void Update()
+    protected void Update()
     {
-        
+        //Reload
+        if(_bCanLaunch == false)
+        {
+            _reloadSaveTime += Time.deltaTime;
+            if(_reloadSaveTime >= _weaponInfo.ReloadTime)
+            {
+                _bCanLaunch = true;
+                _reloadSaveTime = 0.0f;
+            }
+        }
     }
 
     public void Launch(Transform launchTransform)
     {
+        if (_bCanLaunch == false) return;
         Vector3 directionVector = launchTransform.forward;
         GameObject bullet = Instantiate<GameObject>(_weaponInfo.Bullet);
         bullet.transform.position = launchTransform.position + directionVector;
         bullet.transform.forward = directionVector;
+        _bCanLaunch = false;
     }
 
     public void Equipped(Transform parentTransform)

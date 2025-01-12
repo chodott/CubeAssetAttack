@@ -17,7 +17,11 @@ public class ScriptableWeapon : ScriptableObject
     private string _name;
     public string Name { get { return _name; } }
     [SerializeField]
+    private float reloadTime;
+    public float ReloadTime { get { return reloadTime; } }
+    [SerializeField]
     private int power;
     public int Power { get { return power; } }
+    
 
 }
