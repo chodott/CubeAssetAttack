@@ -16,4 +16,5 @@ MonoBehaviour:
   _equipPosition: {x: 0.062, y: -0.032, z: -0.004}
   _equipRotation: {x: 0.49885878, y: 0.49935052, z: 0.4993069, w: 0.50247556}
   _name: Pistol
+  reloadTime: 1
   power: 5
