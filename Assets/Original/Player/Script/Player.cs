@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
             if (hit.collider.CompareTag("BuildPlatform"))
             {
                 _buildButton.interactable = true;
+                BuildManager.Instance.buildTransform = hit.collider.transform;
             }
             else _buildButton.interactable = false;
 

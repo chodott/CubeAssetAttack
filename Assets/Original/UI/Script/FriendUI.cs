@@ -9,12 +9,18 @@ public class FriendUI : MonoBehaviour
         get { return _data; } 
         set { 
             _nameTextUI.text = value.Name;
-            _thumbnail.sprite = Sprite.Create(_data.Thumbnail, new Rect(0,0,100,100), new Vector2(0.5f, 0.5f));
+            //_thumbnail.sprite = Sprite.Create(_data.Thumbnail, new Rect(0,0,100,100), new Vector2(0.5f, 0.5f));
+            _data = value;
         } }
 
     [SerializeField]
     private TextMeshProUGUI _nameTextUI;
     [SerializeField]
     private Image _thumbnail;
+
+    public void BuildFriend()
+    {
+        BuildManager.Instance.Build(Data._SpawnObject);
+    }
 
 }
