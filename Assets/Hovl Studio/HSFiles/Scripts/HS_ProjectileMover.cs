@@ -96,6 +96,8 @@ public class HS_ProjectileMover : MonoBehaviour
             else if (rotationOffset != Vector3.zero) { hit.transform.rotation = Quaternion.Euler(rotationOffset); }
             else { hit.transform.LookAt(contact.point + contact.normal); }
             hitPS.Play();
+
+            Debug.Log(collision.transform.position);
         }
 
         //Removing trail from the projectile on cillision enter or smooth removing. Detached elements must have "AutoDestroying script"

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Weapon : MonoBehaviour
 {
@@ -30,9 +31,9 @@ public class Weapon : MonoBehaviour
     {
         if (_bCanLaunch == false) return;
         Vector3 directionVector = launchTransform.forward;
-        GameObject bullet = Instantiate<GameObject>(_weaponInfo.Bullet);
-        bullet.transform.position = launchTransform.position + directionVector;
-        bullet.transform.forward = directionVector;
+        Vector3 spawnPos = launchTransform.position + directionVector * 2;
+        GameObject bullet = Instantiate<GameObject>(_weaponInfo.Bullet, spawnPos, Quaternion.LookRotation(directionVector));
+        bullet.GetComponent<Bullet>().Power = _weaponInfo.Power;
         _bCanLaunch = false;
     }
 
