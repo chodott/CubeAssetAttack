@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 
         //BuildSystem
         RaycastHit hit;
-        if (Physics.Raycast(_aimCamera.transform.position, _aimCamera.transform.forward, out hit, 2.0f))
+        if (Physics.Raycast(_aimCamera.transform.position, _aimCamera.transform.forward, out hit, 20.0f))
         {
             if (hit.collider.CompareTag("BuildPlatform"))
             {

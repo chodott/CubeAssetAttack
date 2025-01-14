@@ -1,16 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Splines;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        gameObject.tag = "Enemy";
-    }
+    private SplineAnimate _splineAnimate;
 
-    // Update is called once per frame
-    void Update()
+    protected void Awake()
     {
-        
+        _splineAnimate = GetComponent<SplineAnimate>();
+    }
+    public void setPath(SplineContainer path)
+    {
+        _splineAnimate.Container = path;
+        _splineAnimate.Play();
+
     }
 }
