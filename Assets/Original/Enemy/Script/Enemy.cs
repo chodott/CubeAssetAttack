@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     protected void Start()
     {
-        _hp = 5.0f;
+        _hp = 100.0f;
     }
 
 
