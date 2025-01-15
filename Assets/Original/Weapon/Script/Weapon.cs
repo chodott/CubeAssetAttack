@@ -5,6 +5,8 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField]
     private ScriptableWeapon _weaponInfo;
+    [SerializeField]
+    private Transform _muzzleTransform;
     private float _reloadSaveTime;
     private bool _bCanLaunch = true;
     void Start()
@@ -27,14 +29,24 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void Launch(Transform launchTransform)
+    public void Launch(Transform targetTransform)
     {
         if (_bCanLaunch == false) return;
-        Vector3 directionVector = launchTransform.forward;
-        Vector3 spawnPos = launchTransform.position + directionVector * 2;
+
+        //Vector3 directionVector = launchTransform.forward;
+        //Vector3 spawnPos = launchTransform.position + directionVector * 2;
+
+
+        //new type
+        Vector3 directionVector = targetTransform.position - _muzzleTransform.position;
+        Vector3 spawnPos = _muzzleTransform.position;
+
+
         GameObject bullet = Instantiate<GameObject>(_weaponInfo.Bullet, spawnPos, Quaternion.LookRotation(directionVector));
         bullet.GetComponent<Bullet>().Power = _weaponInfo.Power;
         _bCanLaunch = false;
+
+
     }
 
     public void Equipped(Transform parentTransform)

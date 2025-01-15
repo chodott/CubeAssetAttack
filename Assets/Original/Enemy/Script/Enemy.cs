@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     private SplineAnimate _splineAnimate;
     private float _hp;
     public float Hp { get { return _hp; } }
+    private float _runningTime = 0.0f;
+   
 
     protected void Awake()
     {
@@ -25,7 +27,12 @@ public class Enemy : MonoBehaviour
     {
         _splineAnimate.Container = path;
         _splineAnimate.Play();
+    }
 
+    public float GetProgress()
+    {
+        _runningTime += Time.deltaTime;
+        return _runningTime / _splineAnimate.Duration;
     }
 
     public void OnCollisionEnter(Collision collision)

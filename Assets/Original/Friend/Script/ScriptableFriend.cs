@@ -18,5 +18,9 @@ public class ScriptableFriend : ScriptableObject
     [SerializeField]
     private int _cost;
     public int COST { get { return _cost; } }
+
+    [SerializeField]
+    private float _attackRange;
+    public float Range { get { return _attackRange; } }
     
 }

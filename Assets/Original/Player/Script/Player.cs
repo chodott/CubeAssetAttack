@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
 
             if(hit.collider.CompareTag("Enemy"))
             {
-                _equippedWeapon.Launch(_aimCamera.transform);
+                _equippedWeapon.Launch(hit.collider.transform);
             }
         
         }

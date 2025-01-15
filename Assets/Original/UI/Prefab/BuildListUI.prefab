@@ -276,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _friendDataList:
   - {fileID: 11400000, guid: 1ad97b0865c207e4e8636f92128ac359, type: 2}
+  - {fileID: 11400000, guid: 75dc2904bd4e1414d9dd572e84bdfca1, type: 2}
   _friendPanelPrefab: {fileID: 1262091814923033503, guid: f2da1b86388c19d47bbb18e315fb7b86, type: 3}
 --- !u!1 &6532071010623080913
 GameObject:
