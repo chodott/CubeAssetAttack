@@ -22,6 +22,10 @@ public class ScriptableWeapon : ScriptableObject
     [SerializeField]
     private int power;
     public int Power { get { return power; } }
+
+    [SerializeField]
+    private int _weaponType;
+    public int WeaponType { get { return _weaponType; } }
     
 
 }

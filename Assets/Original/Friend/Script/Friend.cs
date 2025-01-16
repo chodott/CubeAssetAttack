@@ -11,6 +11,7 @@ public class Friend : MonoBehaviour
     protected void Start()
     {
         _animator = GetComponent<Animator>();
+        _animator.SetInteger("Type", _equippedWeapon.GetWeaponType());
     }
 
     // Update is called once per frame

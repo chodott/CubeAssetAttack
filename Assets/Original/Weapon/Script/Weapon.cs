@@ -9,12 +9,7 @@ public class Weapon : MonoBehaviour
     private Transform _muzzleTransform;
     private float _reloadSaveTime;
     private bool _bCanLaunch = true;
-    void Start()
-    {
-        
-    }
 
-  
     protected void Update()
     {
         //Reload
@@ -48,11 +43,15 @@ public class Weapon : MonoBehaviour
 
 
     }
-
     public void Equipped(Transform parentTransform)
     {
         transform.position = _weaponInfo.EquipPosition;
         transform.localRotation = _weaponInfo.EquipRotation;
         transform.SetParent(parentTransform,false);
+    }
+
+    public int GetWeaponType()
+    {
+        return _weaponInfo.WeaponType;
     }
 }

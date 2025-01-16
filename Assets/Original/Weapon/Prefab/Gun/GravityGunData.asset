@@ -18,3 +18,4 @@ MonoBehaviour:
   _name: GravityGun
   reloadTime: 1
   power: 5
+  _weaponType: 1
