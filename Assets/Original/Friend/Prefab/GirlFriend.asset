@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0990442ad6133ec40b88998165935e3c, type: 3}
+  m_Name: GirlFriend
+  m_EditorClassIdentifier: 
+  _spawnObject: {fileID: 5824428352053320391, guid: 3e8639af0dca0754aa4a6f4c71de49ac, type: 3}
+  _thumbnail: {fileID: 2800000, guid: 38b382e7bd7903c46b22b86a315739f8, type: 3}
+  _name: Girlfriend
+  _cost: 0
+  _attackRange: 30

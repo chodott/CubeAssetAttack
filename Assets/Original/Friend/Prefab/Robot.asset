@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0990442ad6133ec40b88998165935e3c, type: 3}
+  m_Name: Robot
+  m_EditorClassIdentifier: 
+  _spawnObject: {fileID: 4920267076926813282, guid: 7af11d37d26877c419ae204f0c97707b, type: 3}
+  _thumbnail: {fileID: 2800000, guid: 1fcddc08702c0894faa0d61c3e998cd0, type: 3}
+  _name: Robot
+  _cost: 3
+  _attackRange: 30

@@ -55,8 +55,6 @@ public class Friend : MonoBehaviour
 
         float angle = Vector3.Angle(directionXZ, directionVector);
         _animator.SetFloat("Angle", angle/ 45.0f);
-        _animator.SetFloat("Blend", 0.1f);
-        Debug.Log(angle);
 
     }
 

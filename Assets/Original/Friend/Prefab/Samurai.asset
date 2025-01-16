@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0990442ad6133ec40b88998165935e3c, type: 3}
-  m_Name: Alien
+  m_Name: Samurai
   m_EditorClassIdentifier: 
-  _spawnObject: {fileID: 7369448170708576210, guid: a2836f0676e46dc4685632e429aadbc8, type: 3}
+  _spawnObject: {fileID: 5047480193501460239, guid: 1e812b3f4e779db47999a1586344209b, type: 3}
   _thumbnail: {fileID: 2800000, guid: 1fcddc08702c0894faa0d61c3e998cd0, type: 3}
-  _name: Alien
+  _name: Samurai
   _cost: 3
+  _attackRange: 0

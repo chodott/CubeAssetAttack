@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a001a30912f9474fb2b8acd06376db2, type: 3}
-  m_Name: Pistol
+  m_Name: SMGData
   m_EditorClassIdentifier: 
   _bulletObject: {fileID: 1795072395756124, guid: eb7e6d9e3cd453a42b2b25d1632c89b5, type: 3}
   _equipPosition: {x: 0.062, y: -0.032, z: -0.004}
   _equipRotation: {x: 0.49885878, y: 0.49935052, z: 0.4993069, w: 0.50247556}
-  _name: Pistol
-  reloadTime: 1
+  _name: SMG
+  reloadTime: 0.5
   power: 5
