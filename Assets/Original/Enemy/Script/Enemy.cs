@@ -2,10 +2,14 @@ using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Splines;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
+    private Slider _hpUI;
     private SplineAnimate _splineAnimate;
+    private float _maxHp;
     private float _hp;
     public float Hp { get { return _hp; } }
     private float _runningTime = 0.0f;
@@ -19,7 +23,9 @@ public class Enemy : MonoBehaviour
 
     protected void Start()
     {
-        _hp = 100.0f;
+        _maxHp = 100.0f;
+        _hp = _maxHp;
+        _hpUI.value = _hp/_maxHp;
     }
 
 
@@ -35,15 +41,22 @@ public class Enemy : MonoBehaviour
         return _runningTime / _splineAnimate.Duration;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    private void TakeDamage(float damage)
     {
-        if (!collision.transform.CompareTag("Bullet")) return;
-
-        _hp -= collision.transform.GetComponent<Bullet>().Power;
+        _hp -= damage;
+        _hpUI.value = _hp / _maxHp;
         if (_hp < 0)
         {
             _hp = 0;
             Destroy(gameObject);
         }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.transform.CompareTag("Bullet")) return;
+
+        float damage = collision.transform.GetComponent<Bullet>().Power;
+        TakeDamage(damage);
     }
 }
