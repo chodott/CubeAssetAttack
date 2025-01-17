@@ -16,11 +16,15 @@ public class ScriptableFriend : ScriptableObject
     public string Name { get { return _name; } }
 
     [SerializeField]
+    private float _attackRange;
+    public float Range { get { return _attackRange; } }
+
+    [SerializeField]
     private int _cost;
     public int COST { get { return _cost; } }
 
     [SerializeField]
-    private float _attackRange;
-    public float Range { get { return _attackRange; } }
-    
+    private float _maxHP;
+    public float MaxHP { get { return _maxHP; } }
+
 }

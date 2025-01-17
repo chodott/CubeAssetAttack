@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Friend : MonoBehaviour
 {
@@ -6,12 +7,21 @@ public class Friend : MonoBehaviour
     private Weapon _equippedWeapon;
     private Transform _targetTransform;
     private Animator _animator;
+    private ScriptableFriend _data;
+    public ScriptableFriend Data {  get { return _data; } set { value = _data; } }
+    [SerializeField]
+    private Slider _hpUI;
+
+    private float _hp;
     private float _attackRange = 5.0f;
     private float _rotateSpeed = 10.0f;
     protected void Start()
     {
         _animator = GetComponent<Animator>();
         _animator.SetInteger("Type", _equippedWeapon.GetWeaponType());
+
+        _hp = _data.MaxHP;
+        _hpUI.value = _hp / _data.MaxHP; 
     }
 
     // Update is called once per frame
@@ -73,4 +83,6 @@ public class Friend : MonoBehaviour
         _targetTransform = null;
         return false;
     }
+
+
 }

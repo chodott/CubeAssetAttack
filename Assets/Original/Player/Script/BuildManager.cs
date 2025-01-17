@@ -14,15 +14,10 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    public void Build(GameObject targetPrefab)
+    public void Build(ScriptableFriend friendData)
     {
-        GameObject buildTarget = Instantiate(targetPrefab,buildTransform);
+        GameObject buildTarget = Instantiate(friendData._SpawnObject,buildTransform);
         buildTarget.transform.position = buildTransform.position + Vector3.up * 0.5f;
+        buildTarget.GetComponent<Friend>().Data = friendData;
     }
-
-    public void Check()
-    {
-        Debug.Log("NoProb");
-    }
-
 }

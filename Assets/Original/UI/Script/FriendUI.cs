@@ -19,7 +19,7 @@ public class FriendUI : MonoBehaviour
 
     public void BuildFriend()
     {
-        BuildManager.Instance.Build(Data._SpawnObject);
+        BuildManager.Instance.Build(Data);
     }
 
 }
