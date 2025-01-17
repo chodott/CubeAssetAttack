@@ -28,6 +28,16 @@ public class Enemy : MonoBehaviour
         _hpUI.value = _hp/_maxHp;
     }
 
+    protected void Update()
+    {
+        if(_splineAnimate.NormalizedTime >= 1.0f)
+        {
+            GameManager.Instance.OnDamaged(1);
+            Destroy(gameObject);
+        }
+    }
+
+
 
     public void setPath(SplineContainer path)
     {
