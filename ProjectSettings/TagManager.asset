@@ -6,11 +6,13 @@ TagManager:
   tags:
   - BuildPlatform
   - Enemy
+  - Bullet
+  - UI
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - InteractObject
   - Water
   - UI
   - 
