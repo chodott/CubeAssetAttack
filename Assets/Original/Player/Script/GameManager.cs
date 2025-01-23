@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     //Event
     public event Action<int> OnLifeChanged;
+    public event Action LoseStage;
 
     protected void Awake()
     {
@@ -32,6 +33,6 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-
+        LoseStage.Invoke();
     }
 }

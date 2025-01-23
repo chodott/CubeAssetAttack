@@ -12,7 +12,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _spawnEnemys; 
 
     public WaveInfo[] _waveInfos;
-    private int currentWaveIndex = 0;
+    private int _currentWaveIndex = 0;
+    public int CurrentWave { get { return _currentWaveIndex; } }
 
 
     protected void Awake()
@@ -35,9 +36,9 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        while (currentWaveIndex < _waveInfos.Length)
+        while (_currentWaveIndex < _waveInfos.Length)
         {
-            WaveInfo curWave = _waveInfos[currentWaveIndex];
+            WaveInfo curWave = _waveInfos[_currentWaveIndex];
             GameObject spawnEnemy = _spawnEnemys[curWave.enemyType];
             for (int i = 0; i < curWave.monsterCount; ++i)
             {
@@ -46,7 +47,7 @@ public class SpawnManager : MonoBehaviour
                 yield return new WaitForSeconds(curWave.spawnInterval);
             }
 
-            currentWaveIndex += 1;
+            _currentWaveIndex += 1;
             yield return new WaitForSeconds(curWave.waveInterval);
         }
     }
