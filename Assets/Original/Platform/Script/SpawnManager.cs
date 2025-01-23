@@ -7,7 +7,6 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance {  get; private set; }
     private SplineContainer _enemyPath;
-    public GameObject tempSpawnEnemy;
 
     [SerializeField]
     private GameObject[] _spawnEnemys; 

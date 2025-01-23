@@ -17,7 +17,7 @@ public class BuildManager : MonoBehaviour
     public void Build(ScriptableFriend friendData)
     {
         GameObject buildTarget = Instantiate(friendData._SpawnObject);
-        buildTarget.transform.position = buildTransform.position + Vector3.up * 0.5f;
+        buildTarget.transform.position = buildTransform.position + Vector3.up * 0.25f;
         buildTarget.GetComponent<Friend>().Data = friendData;
     }
 }

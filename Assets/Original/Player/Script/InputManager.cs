@@ -55,12 +55,11 @@ public class InputManager : MonoBehaviour
                 case "UI":
                     break;
 
-            }
+                case "Default":
+                    _buildListUI.SetActive(false);
+                    break;
 
-
-           
-
-            
+            }   
         }
         else _buildListUI.SetActive(false);
     }

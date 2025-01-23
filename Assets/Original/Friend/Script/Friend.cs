@@ -20,8 +20,8 @@ public class Friend : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.SetInteger("Type", _equippedWeapon.GetWeaponType());
 
-        _hp = _data.MaxHP;
-        _hpUI.value = _hp / _data.MaxHP; 
+        //_hp = _data.MaxHP;
+        //_hpUI.value = _hp / _data.MaxHP; 
     }
 
     // Update is called once per frame
@@ -57,7 +57,7 @@ public class Friend : MonoBehaviour
 
     private void TurnToTarget(float deltaTime)
     {
-        Vector3 directionVector = _targetTransform.position  - transform.position;
+        Vector3 directionVector = (_targetTransform.position + transform.up * 1.0f)  - transform.position;
         Vector3 directionXZ = directionVector;
         directionXZ.y = 0;
         Quaternion curRotation =  Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(directionXZ), deltaTime * _rotateSpeed);

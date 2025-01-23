@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WaveDataLoader : MonoBehaviour
 {
-    protected void Start()
+    protected void Awake()
     {
         LoadWaveData("WaveData.json");
     }
@@ -11,11 +11,8 @@ public class WaveDataLoader : MonoBehaviour
     private void LoadWaveData(string fileName)
     {
         TextAsset jsonFile = Resources.Load<TextAsset>(fileName);
-        if (jsonFile == null) Debug.Log("None");
-        else
-        {
-            SpawnManager.Instance._waveInfos = JsonUtility.FromJson<WaveInfoWrapper>(jsonFile.text).waves;
-        }
+  
+        SpawnManager.Instance._waveInfos = JsonUtility.FromJson<WaveInfoWrapper>(jsonFile.text).waves;
     }
 
     [System.Serializable]

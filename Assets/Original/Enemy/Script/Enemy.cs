@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     {
         _splineAnimate = GetComponent<SplineAnimate>();
         GetComponent<Collider>().isTrigger = false;
+        _splineAnimate.Loop = SplineAnimate.LoopMode.Once;
     }
 
     protected void Start()
