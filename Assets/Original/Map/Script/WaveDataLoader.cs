@@ -1,23 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveDataLoader : MonoBehaviour
+public class WaveDataLoader
 {
-    protected void Awake()
-    {
-        LoadWaveData("WaveData.json");
-    }
-
-    private void LoadWaveData(string fileName)
+    public void LoadWaveData(Database database, string fileName)
     {
         TextAsset jsonFile = Resources.Load<TextAsset>(fileName);
-  
-        SpawnManager.Instance._waveInfos = JsonUtility.FromJson<WaveInfoWrapper>(jsonFile.text).waves;
+
+        StageInfo[] stageInfos = JsonUtility.FromJson<StageInfoWrapper>(jsonFile.text)?.stages;
+        if (stageInfos != null)
+        {
+            database.StageInfos = stageInfos;
+        }
     }
 
     [System.Serializable]
-    private class WaveInfoWrapper
+    private class StageInfoWrapper
     {
-        public WaveInfo[] waves; // JSON 파일을 파싱하기 위한 중간 래퍼 클래스
+        public StageInfo[] stages; 
     }
 }
