@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class StageInfoUI : MonoBehaviour
+public class StageStatusUI : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _textMeshPro;
