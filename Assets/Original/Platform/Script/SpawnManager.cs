@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject[] _spawnEnemys; 
 
-    public WaveInfo[] _waveInfos;
+    private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
     public int CurrentWave { get { return _currentWaveIndex; } }
 
@@ -30,6 +30,7 @@ public class SpawnManager : MonoBehaviour
 
     protected void Start()
     {
+        _waveInfos = Database.Instance.GetWaveInfos();
         _enemyPath = GetComponent<SplineContainer>();
         StartCoroutine(SpawnWave());
     }

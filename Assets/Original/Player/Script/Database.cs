@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Database : MonoBehaviour
 {
@@ -22,5 +23,9 @@ public class Database : MonoBehaviour
         }
     }
 
-
+    public WaveInfo[] GetWaveInfos()
+    {
+        int index = SceneManager.GetActiveScene().buildIndex-1;
+        return StageInfos[index].waveInfos;
+    }
 }
