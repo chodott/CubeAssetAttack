@@ -51,13 +51,13 @@ public class Friend : MonoBehaviour
             float value = collider.transform.GetComponent<Enemy>().GetProgress();
             if (maxValue > value) continue;
             maxValue = value;
-            _targetTransform = collider.transform;
+            _targetTransform = collider.GetComponent<Enemy>().HeadTransform;
         }
     }
 
     private void TurnToTarget(float deltaTime)
     {
-        Vector3 directionVector = (_targetTransform.position + transform.up * 1.0f)  - transform.position;
+        Vector3 directionVector = _targetTransform.position  - (transform.position + transform.up * 0.5f);
         Vector3 directionXZ = directionVector;
         directionXZ.y = 0;
         Quaternion curRotation =  Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(directionXZ), deltaTime * _rotateSpeed);

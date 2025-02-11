@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
+    private Transform _headTransform;
+    public Transform HeadTransform { get { return _headTransform; } }
+    [SerializeField]
     private Slider _hpUI;
     private SplineAnimate _splineAnimate;
     private float _maxHp;
