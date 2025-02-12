@@ -9,11 +9,14 @@ public class FriendUI : MonoBehaviour
         get { return _data; } 
         set {
             _data = value;
-            _nameTextUI.text = value.Name;
+            _nameTMP.text = value.Name;
+            _costTMP.text = value.COST.ToString();
         } }
 
     [SerializeField]
-    private TextMeshProUGUI _nameTextUI;
+    private TextMeshProUGUI _nameTMP;
+    [SerializeField]
+    private TextMeshProUGUI _costTMP;
     [SerializeField]
     private Image _thumbnail;
 
