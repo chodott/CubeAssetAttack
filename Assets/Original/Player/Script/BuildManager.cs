@@ -18,6 +18,8 @@ public class BuildManager : MonoBehaviour
     {
         BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
         if (buildPlatform.bCanBuild == false) return;
+        if (GameManager.Instance.PayCoin(friendData.COST) == false) return;
+
         GameObject buildTarget = Instantiate(friendData._SpawnObject);
         buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
         Friend builtFriend = buildTarget.GetComponent<Friend>();
