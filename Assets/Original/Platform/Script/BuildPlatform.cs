@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class BuildPlatform : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Friend _builtFriend;
+    public Friend BuiltFriend { get; set; }
+    public bool bCanBuild
     {
-        //gameObject.tag = "BuildTransform";
+        get
+        {
+            return _builtFriend == null ? true : false;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

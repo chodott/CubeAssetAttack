@@ -48,7 +48,7 @@ public class InputManager : MonoBehaviour
             switch(clickedObject.tag)
             {
                 case "BuildPlatform":
-                    BuildManager.Instance.buildTransform = hit.transform;
+                    BuildManager.Instance.BuildPlatformTransform = hit.transform;
                     _buildListUI.SetActive(true);
                     break;
 

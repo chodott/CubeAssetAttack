@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
-    private Friend _builtFriend;
     public static BuildManager Instance { get; private set; }
-    public Transform buildTransform;
+    public Transform BuildPlatformTransform;
 
     protected void Awake()
     {
@@ -17,10 +16,12 @@ public class BuildManager : MonoBehaviour
 
     public void Build(ScriptableFriend friendData)
     {
-        if (_builtFriend != null) return;
+        BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
+        if (buildPlatform.bCanBuild == false) return;
         GameObject buildTarget = Instantiate(friendData._SpawnObject);
-        buildTarget.transform.position = buildTransform.position + Vector3.up * 0.25f;
-        _builtFriend = buildTarget.GetComponent<Friend>();
-        _builtFriend.Data = friendData;
+        buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
+        Friend builtFriend = buildTarget.GetComponent<Friend>();
+        builtFriend.Data = friendData;
+        buildPlatform.BuiltFriend = builtFriend;
     }
 }
