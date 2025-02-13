@@ -1,6 +1,7 @@
 using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Splines;
 using UnityEngine.UI;
 
@@ -8,13 +9,13 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private Transform _headTransform;
+    private ScriptableEnemy _enemyData;
     public Transform HeadTransform { get { return _headTransform; } }
     [SerializeField]
     private Slider _hpUI;
     private SplineAnimate _splineAnimate;
-    private float _maxHp;
-    private float _hp;
-    public float Hp { get { return _hp; } }
+    private float _curHp;
+    public float Hp { get { return _curHp; } }
     private float _runningTime = 0.0f;
    
 
@@ -25,13 +26,6 @@ public class Enemy : MonoBehaviour
         _splineAnimate.Loop = SplineAnimate.LoopMode.Once;
     }
 
-    protected void Start()
-    {
-        _maxHp = 100.0f;
-        _hp = _maxHp;
-        _hpUI.value = _hp/_maxHp;
-    }
-
     protected void Update()
     {
         if(_splineAnimate.NormalizedTime >= 1.0f)
@@ -39,6 +33,13 @@ public class Enemy : MonoBehaviour
             GameManager.Instance.OnDamaged(1);
             Destroy(gameObject);
         }
+    }
+
+    public void SetData(ScriptableEnemy enemyData)
+    {
+        _enemyData = enemyData;
+        _curHp = _enemyData.HP;
+        _hpUI.value = _curHp / _enemyData.HP;
     }
 
 
@@ -57,11 +58,12 @@ public class Enemy : MonoBehaviour
 
     private void TakeDamage(float damage)
     {
-        _hp -= damage;
-        _hpUI.value = _hp / _maxHp;
-        if (_hp < 0)
+        _curHp -= damage;
+        _hpUI.value = _curHp / _enemyData.HP;
+        if (_curHp < 0)
         {
-            _hp = 0;
+            _curHp = 0;
+            GameManager.Instance.GetCoin(_enemyData.Reward);
             Destroy(gameObject);
         }
     }

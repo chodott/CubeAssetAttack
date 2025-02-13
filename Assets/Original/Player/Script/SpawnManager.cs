@@ -8,9 +8,6 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager Instance {  get; private set; }
     private SplineContainer _enemyPath;
 
-    [SerializeField]
-    private GameObject[] _spawnEnemys; 
-
     private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
     public int CurrentWave { get { return _currentWaveIndex; } }
@@ -40,11 +37,14 @@ public class SpawnManager : MonoBehaviour
         while (_currentWaveIndex < _waveInfos.Length)
         {
             WaveInfo curWave = _waveInfos[_currentWaveIndex];
-            GameObject spawnEnemy = _spawnEnemys[curWave.enemyType];
+            ScriptableEnemy spawnEnemyInfo = Database.Instance.GetEnemyInfo(curWave.enemyType);
+            GameObject spawnEnemy = spawnEnemyInfo.EnemyPrefab;
+
             for (int i = 0; i < curWave.monsterCount; ++i)
             {
                 GameObject spawnedEnemy = Instantiate(spawnEnemy);
                 spawnedEnemy.GetComponent<Enemy>().setPath(_enemyPath);
+                spawnedEnemy.GetComponent<Enemy>().SetData(spawnEnemyInfo);
                 yield return new WaitForSeconds(curWave.spawnInterval);
             }
 

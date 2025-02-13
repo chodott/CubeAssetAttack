@@ -61,4 +61,10 @@ public class GameManager : MonoBehaviour
         }
         else return false;
     }
+
+    public void GetCoin(int value)
+    {
+        _coinCnt += value;
+        OnCoinChanged?.Invoke(_coinCnt); 
+    }
 }

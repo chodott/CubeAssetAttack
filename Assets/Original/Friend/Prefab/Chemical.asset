@@ -15,5 +15,6 @@ MonoBehaviour:
   _spawnObject: {fileID: 3716350784678828423, guid: 96fd908cec02eeb4188695d89f3f0770, type: 3}
   _thumbnail: {fileID: 2800000, guid: 1fcddc08702c0894faa0d61c3e998cd0, type: 3}
   _name: Scientist
-  _cost: 3
   _attackRange: 30
+  _cost: 5
+  _maxHP: 0
