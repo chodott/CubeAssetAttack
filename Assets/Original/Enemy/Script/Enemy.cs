@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
     {
         _curHp -= damage;
         _hpUI.value = _curHp / _enemyData.HP;
-        if (_curHp < 0)
+        if (_curHp <= 0)
         {
             _curHp = 0;
             GameManager.Instance.GetCoin(_enemyData.Reward);

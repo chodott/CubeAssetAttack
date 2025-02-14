@@ -8,6 +8,10 @@ public class ScriptableEnemy : ScriptableObject
     public GameObject EnemyPrefab { get { return _enemyPrefab; } }
 
     [SerializeField]
+    private Sprite _thumbnail;
+    public Sprite Thumbnail { get { return _thumbnail; } }
+
+    [SerializeField]
     private string _name;
     public string Name { get { return _name; } }
 
