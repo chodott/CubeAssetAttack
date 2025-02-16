@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: SandbagData
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 1963519979866558, guid: 965efd6af1fa4cd4496b9a12dd921e42, type: 3}
+  _thumbnail: {fileID: 0}
   _name: Sandbag
   _speed: 1
   _power: 0
   _reward: 5
   _hp: 5
+  _type: 1

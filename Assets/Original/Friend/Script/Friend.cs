@@ -20,8 +20,10 @@ public class Friend : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.SetInteger("Type", _equippedWeapon.GetWeaponType());
 
-        //_hp = _data.MaxHP;
-        //_hpUI.value = _hp / _data.MaxHP; 
+        _animator.SetFloat("Angle", -1.0f);
+        Vector3 firstPos = new Vector3(Camera.main.transform.position.x, transform.position.y,Camera.main.transform.position.z);
+        transform.LookAt(firstPos);
+
     }
 
     // Update is called once per frame

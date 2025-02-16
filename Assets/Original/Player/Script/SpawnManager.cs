@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance {  get; private set; }
     private SplineContainer _enemyPath;
+    private ObjectPool _enemyObjectPool;
 
     private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
@@ -27,8 +28,13 @@ public class SpawnManager : MonoBehaviour
 
     protected void Start()
     {
+
         _waveInfos = Database.Instance.GetWaveInfos();
         _enemyPath = GetComponent<SplineContainer>();
+
+        _enemyObjectPool = new ObjectPool();
+        _enemyObjectPool.Initialize(_waveInfos);
+
         StartCoroutine(SpawnWave());
     }
 
@@ -42,14 +48,23 @@ public class SpawnManager : MonoBehaviour
 
             for (int i = 0; i < curWave.monsterCount; ++i)
             {
-                GameObject spawnedEnemy = Instantiate(spawnEnemy);
-                spawnedEnemy.GetComponent<Enemy>().setPath(_enemyPath);
-                spawnedEnemy.GetComponent<Enemy>().SetData(spawnEnemyInfo);
+                GameObject spawnedGameObject = _enemyObjectPool.GetObject(curWave.enemyType);
+                Enemy spawnedEnemy = spawnedGameObject.GetComponent<Enemy>();
+                spawnedEnemy.Acitvate();
+                spawnedEnemy.setPath(_enemyPath);
+                spawnedEnemy.SetData(spawnEnemyInfo);
                 yield return new WaitForSeconds(curWave.spawnInterval);
             }
 
             _currentWaveIndex += 1;
             yield return new WaitForSeconds(curWave.waveInterval);
         }
+    }
+
+    public void GetBack(Enemy enemy)
+    {
+        //enemy.Deactivate();
+        //_enemyObjectPool.ReturnObject(enemy);
+
     }
 }

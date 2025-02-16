@@ -14,10 +14,11 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Slider _hpUI;
     private SplineAnimate _splineAnimate;
+    private float _runningTime = 0.0f;
+
     private float _curHp;
     public float Hp { get { return _curHp; } }
-    private float _runningTime = 0.0f;
-   
+    public int EnemyType { get { return _enemyData.Type; } }
 
     protected void Awake()
     {
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
         if(_splineAnimate.NormalizedTime >= 1.0f)
         {
             GameManager.Instance.OnDamaged(1);
+            SpawnManager.Instance.GetBack(this);
             Destroy(gameObject);
         }
     }
@@ -41,8 +43,6 @@ public class Enemy : MonoBehaviour
         _curHp = _enemyData.HP;
         _hpUI.value = _curHp / _enemyData.HP;
     }
-
-
 
     public void setPath(SplineContainer path)
     {
@@ -62,10 +62,15 @@ public class Enemy : MonoBehaviour
         _hpUI.value = _curHp / _enemyData.HP;
         if (_curHp <= 0)
         {
-            _curHp = 0;
-            GameManager.Instance.GetCoin(_enemyData.Reward);
-            Destroy(gameObject);
+            Die();  
         }
+    }
+
+    private void Die()
+    {
+        _curHp = 0;
+        GameManager.Instance.GetCoin(_enemyData.Reward);
+        SpawnManager.Instance.GetBack(this);
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -75,4 +80,15 @@ public class Enemy : MonoBehaviour
         float damage = collision.transform.GetComponent<Bullet>().Power;
         TakeDamage(damage);
     }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Acitvate()
+    {
+        gameObject.SetActive(true);
+    }
+
 }

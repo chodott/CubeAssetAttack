@@ -30,4 +30,8 @@ public class ScriptableEnemy : ScriptableObject
     [SerializeField]
     private int _hp;
     public int HP { get { return _hp; } }
+
+    [SerializeField]
+    private int _type;
+    public int Type { get { return _type; } }
 }
