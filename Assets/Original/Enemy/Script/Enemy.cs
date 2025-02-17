@@ -2,7 +2,6 @@ using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Splines;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
@@ -13,8 +12,6 @@ public class Enemy : MonoBehaviour
     public Transform HeadTransform { get { return _headTransform; } }
     [SerializeField]
     private Slider _hpUI;
-    private SplineAnimate _splineAnimate;
-    private float _runningTime = 0.0f;
 
     private float _curHp;
     public float Hp { get { return _curHp; } }
@@ -22,19 +19,18 @@ public class Enemy : MonoBehaviour
 
     protected void Awake()
     {
-        _splineAnimate = GetComponent<SplineAnimate>();
         GetComponent<Collider>().isTrigger = false;
-        _splineAnimate.Loop = SplineAnimate.LoopMode.Once;
     }
 
     protected void Update()
     {
-        if(_splineAnimate.NormalizedTime >= 1.0f)
+        if(true)
         {
             GameManager.Instance.OnDamaged(1);
             SpawnManager.Instance.GetBack(this);
-            Destroy(gameObject);
         }
+
+        transform.position += Vector3.right * -0.05f;
     }
 
     public void SetData(ScriptableEnemy enemyData)
@@ -42,18 +38,6 @@ public class Enemy : MonoBehaviour
         _enemyData = enemyData;
         _curHp = _enemyData.HP;
         _hpUI.value = _curHp / _enemyData.HP;
-    }
-
-    public void setPath(SplineContainer path)
-    {
-        _splineAnimate.Container = path;
-        _splineAnimate.Play();
-    }
-
-    public float GetProgress()
-    {
-        _runningTime += Time.deltaTime;
-        return _runningTime / _splineAnimate.Duration;
     }
 
     private void TakeDamage(float damage)

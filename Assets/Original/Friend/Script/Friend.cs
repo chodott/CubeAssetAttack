@@ -50,7 +50,8 @@ public class Friend : MonoBehaviour
         {
             Enemy enemy = collider.gameObject.GetComponent<Enemy>();
             if (enemy == null) continue;
-            float value = collider.transform.GetComponent<Enemy>().GetProgress();
+            //적 진행도 파악
+            float value = 0;// collider.transform.GetComponent<Enemy>().GetProgress();
             if (maxValue > value) continue;
             maxValue = value;
             _targetTransform = collider.GetComponent<Enemy>().HeadTransform;

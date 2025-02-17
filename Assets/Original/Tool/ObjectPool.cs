@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
@@ -16,6 +17,7 @@ public class ObjectPool : MonoBehaviour
             for (int i = 0; i < _initSpawnCnt; i++)
             {
                 GameObject newObject = Instantiate(enemyPrefab);
+                newObject.SetActive(false);
                 _dictionaryPool[enemyType].Enqueue(newObject);
             }
         }

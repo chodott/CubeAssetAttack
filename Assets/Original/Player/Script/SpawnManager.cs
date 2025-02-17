@@ -51,7 +51,6 @@ public class SpawnManager : MonoBehaviour
                 GameObject spawnedGameObject = _enemyObjectPool.GetObject(curWave.enemyType);
                 Enemy spawnedEnemy = spawnedGameObject.GetComponent<Enemy>();
                 spawnedEnemy.Acitvate();
-                spawnedEnemy.setPath(_enemyPath);
                 spawnedEnemy.SetData(spawnEnemyInfo);
                 yield return new WaitForSeconds(curWave.spawnInterval);
             }
@@ -63,8 +62,8 @@ public class SpawnManager : MonoBehaviour
 
     public void GetBack(Enemy enemy)
     {
-        //enemy.Deactivate();
-        //_enemyObjectPool.ReturnObject(enemy);
+        enemy.Deactivate();
+        _enemyObjectPool.ReturnObject(enemy);
 
     }
 }
