@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
     public float Hp { get { return _curHp; } }
     public int EnemyType { get { return _enemyData.Type; } }
 
+    private Vector3 pointToGo;
+    private int curPathLevel = 1;
+
     protected void Awake()
     {
         GetComponent<Collider>().isTrigger = false;
@@ -24,17 +27,36 @@ public class Enemy : MonoBehaviour
 
     protected void Update()
     {
-        if(true)
+        if (GetProgress() >= 0.99)
         {
-            GameManager.Instance.OnDamaged(1);
-            SpawnManager.Instance.GetBack(this);
+            pointToGo =  PathManager.Instance.GetNextPoint(curPathLevel++);
+            if(pointToGo == Vector3.zero)
+            {
+                GameManager.Instance.OnDamaged(1);
+                SpawnManager.Instance.GetBack(this);
+                return;
+            }
         }
 
-        transform.position += Vector3.right * -0.05f;
+        Vector3 position = transform.position;
+        Vector3 directionVector = pointToGo - transform.position;
+        directionVector.Normalize();
+        transform.position += directionVector * _enemyData.Speed;
+    }
+
+    public float GetProgress()
+    {
+        float distance = Vector3.Distance(pointToGo, transform.position);
+        float totalDistance = PathManager.Instance.GetGapBetweenPoints(curPathLevel);
+        return (totalDistance - distance) / totalDistance;
     }
 
     public void SetData(ScriptableEnemy enemyData)
     {
+        transform.position = PathManager.Instance.GetFirstPoint();
+        curPathLevel = 1;
+        pointToGo = PathManager.Instance._wayPoints[1].position;
+
         _enemyData = enemyData;
         _curHp = _enemyData.HP;
         _hpUI.value = _curHp / _enemyData.HP;

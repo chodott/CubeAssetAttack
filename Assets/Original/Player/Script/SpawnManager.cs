@@ -1,12 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance {  get; private set; }
-    private SplineContainer _enemyPath;
     private ObjectPool _enemyObjectPool;
 
     private WaveInfo[] _waveInfos;
@@ -30,7 +27,6 @@ public class SpawnManager : MonoBehaviour
     {
 
         _waveInfos = Database.Instance.GetWaveInfos();
-        _enemyPath = GetComponent<SplineContainer>();
 
         _enemyObjectPool = new ObjectPool();
         _enemyObjectPool.Initialize(_waveInfos);
