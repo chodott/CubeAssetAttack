@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
@@ -9,11 +10,14 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private GameObject _buildListUI;
 
+    int buildLayerMask;
+
     protected void Start()
     {
         // Action Map과 Action을 가져옴
         var playerInputMap = inputActions.FindActionMap("Player");
         pointerPositionAction = playerInputMap.FindAction("Touch");
+        buildLayerMask = LayerMask.GetMask("InteractObject");
 
         // 입력 활성화
         pointerPositionAction.Enable();
@@ -36,12 +40,17 @@ public class InputManager : MonoBehaviour
 
     private void OnPointerClick(InputAction.CallbackContext context)
     {
+        //First Check UI Click
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
+        //After Check BuildPlatform Click
         Vector2 screenPosition = Mouse.current.position.ReadValue();
 
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, buildLayerMask))
         {
             GameObject clickedObject = hit.collider.gameObject;
 
@@ -54,11 +63,6 @@ public class InputManager : MonoBehaviour
 
                 case "UI":
                     break;
-
-                case "Default":
-                    _buildListUI.SetActive(false);
-                    break;
-
             }   
         }
         else _buildListUI.SetActive(false);

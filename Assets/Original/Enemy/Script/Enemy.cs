@@ -1,7 +1,4 @@
-using System.Net;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
@@ -27,7 +24,8 @@ public class Enemy : MonoBehaviour
 
     protected void Update()
     {
-        if (GetProgress() >= 0.99)
+        float progress = Mathf.Abs(GetProgress());
+        if (progress >= 0.99)
         {
             pointToGo =  PathManager.Instance.GetNextPoint(curPathLevel++);
             if(pointToGo == Vector3.zero)
@@ -48,6 +46,7 @@ public class Enemy : MonoBehaviour
     {
         float distance = Vector3.Distance(pointToGo, transform.position);
         float totalDistance = PathManager.Instance.GetGapBetweenPoints(curPathLevel);
+
         return (totalDistance - distance) / totalDistance;
     }
 

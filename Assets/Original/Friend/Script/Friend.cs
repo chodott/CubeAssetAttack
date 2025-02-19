@@ -51,10 +51,10 @@ public class Friend : MonoBehaviour
             Enemy enemy = collider.gameObject.GetComponent<Enemy>();
             if (enemy == null) continue;
             //적 진행도 파악
-            float value = 0;// collider.transform.GetComponent<Enemy>().GetProgress();
+            float value = enemy.GetProgress();
             if (maxValue > value) continue;
             maxValue = value;
-            _targetTransform = collider.GetComponent<Enemy>().HeadTransform;
+            _targetTransform = enemy.HeadTransform;
         }
     }
 
@@ -80,7 +80,7 @@ public class Friend : MonoBehaviour
         Vector3 targetPosition2D = _targetTransform.position;
         targetPosition2D.y = 0;
 
-        float distance2D = (position2D - targetPosition2D).magnitude;
+        float distance2D = Vector3.Distance(position2D, targetPosition2D);
         if (distance2D < _attackRange) return true;
 
         _targetTransform = null;
