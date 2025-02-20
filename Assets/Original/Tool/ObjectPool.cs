@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     private Dictionary<int, Queue<GameObject>> _dictionaryPool = new Dictionary<int ,Queue<GameObject>>();
-    private int _initSpawnCnt = 100;
+    private int _initSpawnCnt = 0;
 
     public void Initialize(WaveInfo[] waveInfos)
     {

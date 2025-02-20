@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 3158141867476536159}
   - component: {fileID: 5066496297295473706}
   - component: {fileID: 5480119630515044777}
+  - component: {fileID: 7454915645370257200}
   m_Layer: 0
   m_Name: DummyEnemy
   m_TagString: Enemy
@@ -273,6 +274,29 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7454915645370257200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4440664691527742538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a074d529cf945029ef7cf40540c9df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_LoopMode: 0
+  m_Method: 1
+  m_Duration: 51.769245
+  m_MaxSpeed: 3
+  m_EasingMode: 0
+  m_AlignmentMode: 1
+  m_ObjectForwardAxis: 2
+  m_ObjectUpAxis: 1
+  m_StartOffset: 0
 --- !u!1 &4485291137776900385
 GameObject:
   m_ObjectHideFlags: 0
