@@ -5,14 +5,13 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private Transform _headTransform;
-    private ScriptableEnemy _enemyData;
+    private ScriptableEnemy _enemyInfo;
     public Transform HeadTransform { get { return _headTransform; } }
-    [SerializeField]
-    private Slider _hpUI;
+    private HpBarUI _hpUI;
 
     private float _curHp;
     public float Hp { get { return _curHp; } }
-    public int EnemyType { get { return _enemyData.Type; } }
+    public int EnemyType { get { return _enemyInfo.Type; } }
 
     private Vector3 pointToGo;
     private int curPathLevel = 1;
@@ -28,10 +27,13 @@ public class Enemy : MonoBehaviour
         if (progress >= 0.99)
         {
             pointToGo =  PathManager.Instance.GetNextPoint(curPathLevel++);
+
+            //Success Destination
             if(pointToGo == Vector3.zero)
             {
                 GameManager.Instance.OnDamaged(1);
-                SpawnManager.Instance.GetBack(this);
+                SpawnManager.Instance.GetBack(_hpUI.gameObject);
+                SpawnManager.Instance.GetBack(gameObject);
                 return;
             }
         }
@@ -39,7 +41,9 @@ public class Enemy : MonoBehaviour
         Vector3 position = transform.position;
         Vector3 directionVector = pointToGo - transform.position;
         directionVector.Normalize();
-        transform.position += directionVector * _enemyData.Speed;
+        transform.position += directionVector * _enemyInfo.Speed;
+
+        _hpUI.SetPosition(transform);
     }
 
     public float GetProgress()
@@ -50,21 +54,10 @@ public class Enemy : MonoBehaviour
         return (totalDistance - distance) / totalDistance;
     }
 
-    public void SetData(ScriptableEnemy enemyData)
-    {
-        transform.position = PathManager.Instance.GetFirstPoint();
-        curPathLevel = 1;
-        pointToGo = PathManager.Instance._wayPoints[1].position;
-
-        _enemyData = enemyData;
-        _curHp = _enemyData.HP;
-        _hpUI.value = _curHp / _enemyData.HP;
-    }
-
     private void TakeDamage(float damage)
     {
         _curHp -= damage;
-        _hpUI.value = _curHp / _enemyData.HP;
+        _hpUI.UpdateHP( _curHp / _enemyInfo.HP);
         if (_curHp <= 0)
         {
             Die();  
@@ -74,8 +67,8 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         _curHp = 0;
-        GameManager.Instance.GetCoin(_enemyData.Reward);
-        SpawnManager.Instance.GetBack(this);
+        GameManager.Instance.GetCoin(_enemyInfo.Reward);
+        SpawnManager.Instance.GetBack(gameObject);
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -91,9 +84,18 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Acitvate()
+    public void Acitvate(HpBarUI hpbar, ScriptableEnemy info)
     {
+        transform.position = PathManager.Instance.GetFirstPoint();
+        curPathLevel = 1;
+        pointToGo = PathManager.Instance._wayPoints[1].position;
+
+        _hpUI = hpbar;
+
+        _enemyInfo = info;
+        _curHp = _enemyInfo.HP;
+        _hpUI.UpdateHP(_curHp / _enemyInfo.HP);
+
         gameObject.SetActive(true);
     }
-
 }

@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 5453301940688465055}
   - component: {fileID: 6850665183635558534}
   - component: {fileID: 4545839416921773671}
+  - component: {fileID: 8610569244115089981}
   m_Layer: 5
   m_Name: EnemyHpUI
   m_TagString: Untagged
@@ -360,7 +361,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6850665183635558534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,3 +391,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7ecc5dce414649419989d63d1b1733c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slider: {fileID: 2111744205636684150}
+  _yGap: 0.5
+  Prefab: {fileID: 6745237144849853876}
+--- !u!114 &8610569244115089981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6745237144849853876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 779b69169ca669a4084e740725bae0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 6745237144849853876}

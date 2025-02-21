@@ -1,13 +1,27 @@
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class HpBarUI : MonoBehaviour
 {
+    [SerializeField]
+    private Slider _slider;
     private Camera mainCamera;
+    [SerializeField]
+    private float _yGap = 1.5f;
     protected void Start()
     {
         mainCamera = Camera.main;
+    }
+
+    public void UpdateHP(float curHp)
+    {
+        _slider.value = curHp;
+    }
+
+    public void SetPosition(Transform parentTransform)
+    {
+        transform.position = parentTransform.position + parentTransform.up * _yGap;
     }
 
     protected void LateUpdate()

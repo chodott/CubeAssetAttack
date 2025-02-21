@@ -1,37 +1,38 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    private Dictionary<int, Queue<GameObject>> _dictionaryPool = new Dictionary<int ,Queue<GameObject>>();
+    private Dictionary<GameObject, Queue<GameObject>> _dictionaryPool = new Dictionary<GameObject ,Queue<GameObject>>();
     private int _initSpawnCnt = 100;
 
     public void Initialize(WaveInfo[] waveInfos)
     {
         foreach(WaveInfo waveInfo  in waveInfos)
         {
-            int enemyType = waveInfo.enemyType;
-            GameObject enemyPrefab =  Database.Instance.GetEnemyInfo(enemyType).EnemyPrefab;
-            _dictionaryPool.Add(enemyType, new Queue<GameObject>());
+            GameObject enemyPrefab =  Database.Instance.GetEnemyInfo(waveInfo.enemyType).EnemyPrefab;
+            _dictionaryPool.Add(enemyPrefab, new Queue<GameObject>());
             for (int i = 0; i < _initSpawnCnt; i++)
             {
                 GameObject newObject = Instantiate(enemyPrefab);
                 newObject.SetActive(false);
-                _dictionaryPool[enemyType].Enqueue(newObject);
+                _dictionaryPool[enemyPrefab].Enqueue(newObject);
             }
         }
     }
 
 
-    public GameObject GetObject(int type)
+    public GameObject GetObject(GameObject prefab)
     {
-        if(_dictionaryPool[type].Count >0) return _dictionaryPool[type].Dequeue();
-        else return Instantiate(Database.Instance.GetEnemyInfo(type).EnemyPrefab);
+        if(!_dictionaryPool.ContainsKey(prefab)) _dictionaryPool.Add(prefab, new Queue<GameObject>()); 
+        if(_dictionaryPool[prefab].Count >0) return _dictionaryPool[prefab].Dequeue();
+        else return Instantiate(prefab);
     }
 
-    public void ReturnObject(Enemy enemy)
+    public void ReturnObject(GameObject gameObject)
     {
-        _dictionaryPool[enemy.EnemyType].Enqueue(enemy.gameObject);
+        gameObject.SetActive(false);
+        GameObject prefab = gameObject.GetComponent<PoolingObject>().Prefab;
+        _dictionaryPool[prefab].Enqueue(gameObject);
     }
 }

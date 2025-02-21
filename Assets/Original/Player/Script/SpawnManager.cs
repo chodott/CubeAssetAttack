@@ -4,7 +4,13 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance {  get; private set; }
-    private ObjectPool _enemyObjectPool;
+    private ObjectPool _objectPool;
+
+    //UI
+    [SerializeField]
+    private Transform _canvas;
+    [SerializeField]
+    private GameObject _hpbarPrefab;
 
     private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
@@ -28,8 +34,8 @@ public class SpawnManager : MonoBehaviour
 
         _waveInfos = Database.Instance.GetWaveInfos();
 
-        _enemyObjectPool = new ObjectPool();
-        _enemyObjectPool.Initialize(_waveInfos);
+        _objectPool = GetComponent<ObjectPool>();
+        _objectPool.Initialize(_waveInfos);
 
         StartCoroutine(SpawnWave());
     }
@@ -44,10 +50,11 @@ public class SpawnManager : MonoBehaviour
 
             for (int i = 0; i < curWave.monsterCount; ++i)
             {
-                GameObject spawnedGameObject = _enemyObjectPool.GetObject(curWave.enemyType);
+                GameObject spawnedGameObject = _objectPool.GetObject(spawnEnemy);
                 Enemy spawnedEnemy = spawnedGameObject.GetComponent<Enemy>();
-                spawnedEnemy.Acitvate();
-                spawnedEnemy.SetData(spawnEnemyInfo);
+                HpBarUI spawnedHpbarUI = _objectPool.GetObject(_hpbarPrefab).GetComponent<HpBarUI>();
+                spawnedHpbarUI.transform.SetParent(_canvas, false);
+                spawnedEnemy.Acitvate(spawnedHpbarUI, spawnEnemyInfo);
                 yield return new WaitForSeconds(curWave.spawnInterval);
             }
 
@@ -56,10 +63,8 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void GetBack(Enemy enemy)
+    public void GetBack(GameObject gameObject)
     {
-        enemy.Deactivate();
-        _enemyObjectPool.ReturnObject(enemy);
-
+        _objectPool.ReturnObject(gameObject);
     }
 }
