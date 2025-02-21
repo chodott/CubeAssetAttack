@@ -498,6 +498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyHpUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6745237144849853876, guid: fb1c3067be0a9bd4d8c859dbe17cf0d1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

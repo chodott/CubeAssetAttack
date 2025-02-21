@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
         // Action Map과 Action을 가져옴
         var playerInputMap = inputActions.FindActionMap("Player");
         pointerPositionAction = playerInputMap.FindAction("Touch");
-        buildLayerMask = LayerMask.GetMask("InteractObject");
+        buildLayerMask = LayerMask.GetMask("BuildPlatform");
 
         // 입력 활성화
         pointerPositionAction.Enable();
@@ -53,17 +53,8 @@ public class InputManager : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, buildLayerMask))
         {
             GameObject clickedObject = hit.collider.gameObject;
-
-            switch(clickedObject.tag)
-            {
-                case "BuildPlatform":
-                    BuildManager.Instance.BuildPlatformTransform = hit.transform;
-                    _buildListUI.SetActive(true);
-                    break;
-
-                case "UI":
-                    break;
-            }   
+            BuildManager.Instance.BuildPlatformTransform = hit.transform;
+            _buildListUI.SetActive(true);
         }
         else _buildListUI.SetActive(false);
     }
