@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,6 +14,8 @@ public class Enemy : MonoBehaviour
 
     private Vector3 pointToGo;
     private int curPathLevel = 1;
+
+    private float _rotateSpeed = 10.0f;
 
     protected void Awake()
     {
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour
         Vector3 directionVector = pointToGo - transform.position;
         directionVector.Normalize();
         transform.position += directionVector * _enemyInfo.Speed;
+        RotateToRoad(Time.deltaTime);
 
         _hpUI.SetPosition(transform);
     }
@@ -52,6 +54,17 @@ public class Enemy : MonoBehaviour
         float totalDistance = PathManager.Instance.GetGapBetweenPoints(curPathLevel);
 
         return (totalDistance - distance) / totalDistance;
+    }
+
+    public void RotateToRoad(float deltaTime)
+    {
+        Vector3 directionVector = pointToGo - (transform.position + transform.up * 0.5f);
+        Vector3 directionXZ = directionVector;
+
+        directionXZ.y = 0;
+
+        Quaternion curRotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(directionXZ), deltaTime * _rotateSpeed);
+        transform.rotation = curRotation;
     }
 
     private void TakeDamage(float damage)
