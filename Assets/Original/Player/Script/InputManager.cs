@@ -10,14 +10,15 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private GameObject _buildListUI;
 
-    int buildLayerMask;
+    private int _buildLayerMask;
+    private bool _OnMouseClick = false; 
 
     protected void Start()
     {
         // Action Map과 Action을 가져옴
         var playerInputMap = inputActions.FindActionMap("Player");
         pointerPositionAction = playerInputMap.FindAction("Touch");
-        buildLayerMask = LayerMask.GetMask("BuildPlatform");
+        _buildLayerMask = LayerMask.GetMask("BuildPlatform");
 
         // 입력 활성화
         pointerPositionAction.Enable();
@@ -34,28 +35,35 @@ public class InputManager : MonoBehaviour
         pointerPositionAction.performed -= OnPointerClick;
     }
 
-    private void Update()
+    protected void LateUpdate()
     {
-    }
-
-    private void OnPointerClick(InputAction.CallbackContext context)
-    {
+        if (_OnMouseClick == false) return;
+        _OnMouseClick = false;
         //First Check UI Click
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }
 
-        //After Check BuildPlatform Click
-        Vector2 screenPosition = Mouse.current.position.ReadValue();
-
-        Ray ray = Camera.main.ScreenPointToRay(screenPosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, buildLayerMask))
+        else
         {
-            GameObject clickedObject = hit.collider.gameObject;
-            SpawnManager.Instance.BuildPlatformTransform = hit.transform;
-            _buildListUI.SetActive(true);
+            //After Check BuildPlatform Click
+            Vector2 screenPosition = Mouse.current.position.ReadValue();
+
+            Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _buildLayerMask))
+            {
+                GameObject clickedObject = hit.collider.gameObject;
+                SpawnManager.Instance.BuildPlatformTransform = hit.transform;
+                _buildListUI.SetActive(true);
+            }
+            else _buildListUI.SetActive(false);
         }
-        else _buildListUI.SetActive(false);
+
+    }
+
+    private void OnPointerClick(InputAction.CallbackContext context)
+    {
+        _OnMouseClick = true;
     }
 }
