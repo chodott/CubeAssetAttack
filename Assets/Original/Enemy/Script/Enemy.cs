@@ -68,6 +68,7 @@ public class Enemy : MonoBehaviour
     {
         _curHp = 0;
         GameManager.Instance.GetCoin(_enemyInfo.Reward);
+        SpawnManager.Instance.GetBack(_hpUI.gameObject);
         SpawnManager.Instance.GetBack(gameObject);
     }
 
@@ -78,13 +79,7 @@ public class Enemy : MonoBehaviour
         float damage = collision.transform.GetComponent<Bullet>().Power;
         TakeDamage(damage);
     }
-
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
-    }
-
-    public void Acitvate(HpBarUI hpbar, ScriptableEnemy info)
+    public void Initialize(HpBarUI hpbar, ScriptableEnemy info)
     {
         transform.position = PathManager.Instance.GetFirstPoint();
         curPathLevel = 1;
@@ -95,7 +90,11 @@ public class Enemy : MonoBehaviour
         _enemyInfo = info;
         _curHp = _enemyInfo.HP;
         _hpUI.UpdateHP(_curHp / _enemyInfo.HP);
+    }
 
+    public void Acitvate(GameObject originalPrefab)
+    {
+        GetComponent<PoolingObject>().Prefab = originalPrefab;
         gameObject.SetActive(true);
     }
 }

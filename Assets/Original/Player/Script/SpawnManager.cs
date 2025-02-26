@@ -54,7 +54,7 @@ public class SpawnManager : MonoBehaviour
                 Enemy spawnedEnemy = spawnedGameObject.GetComponent<Enemy>();
                 HpBarUI spawnedHpbarUI = _objectPool.GetObject(_hpbarPrefab).GetComponent<HpBarUI>();
                 spawnedHpbarUI.transform.SetParent(_canvas, false);
-                spawnedEnemy.Acitvate(spawnedHpbarUI, spawnEnemyInfo);
+                spawnedEnemy.Initialize(spawnedHpbarUI, spawnEnemyInfo);
                 yield return new WaitForSeconds(curWave.spawnInterval);
             }
 

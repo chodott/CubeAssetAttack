@@ -24,9 +24,13 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetObject(GameObject prefab)
     {
-        if(!_dictionaryPool.ContainsKey(prefab)) _dictionaryPool.Add(prefab, new Queue<GameObject>()); 
-        if(_dictionaryPool[prefab].Count >0) return _dictionaryPool[prefab].Dequeue();
-        else return Instantiate(prefab);
+        if(!_dictionaryPool.ContainsKey(prefab)) _dictionaryPool.Add(prefab, new Queue<GameObject>());
+        GameObject newObject = null;
+        if(_dictionaryPool[prefab].Count >0) newObject =  _dictionaryPool[prefab].Dequeue();
+        else newObject =  Instantiate(prefab);
+
+        newObject.GetComponent<PoolingObject>().Activate(prefab);
+        return newObject;
     }
 
     public void ReturnObject(GameObject gameObject)
