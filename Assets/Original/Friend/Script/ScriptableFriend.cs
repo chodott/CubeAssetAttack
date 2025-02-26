@@ -3,9 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ScriptableFriend", menuName = "Scriptable Objects/ScriptableFriend")]
 public class ScriptableFriend : ScriptableObject
 {
-    [SerializeField]
-    private GameObject _spawnObject;
-    public GameObject _SpawnObject { get { return _spawnObject; } }
+    public enum EFriendType
+    { 
+      Girl = 0,
+      Ailen =1
+    }
 
     [SerializeField]
     private Texture2D _thumbnail;
@@ -18,6 +20,10 @@ public class ScriptableFriend : ScriptableObject
     [SerializeField]
     private float _attackRange;
     public float Range { get { return _attackRange; } }
+
+    [SerializeField]
+    private EFriendType _type;
+    public EFriendType Type { get { return _type; } }
 
     [SerializeField]
     private int _cost;

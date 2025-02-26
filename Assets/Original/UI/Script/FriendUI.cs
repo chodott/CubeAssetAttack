@@ -22,7 +22,7 @@ public class FriendUI : MonoBehaviour
 
     public void BuildFriend()
     {
-        BuildManager.Instance.Build(Data);
+        SpawnManager.Instance.Build(Data);
     }
 
 }

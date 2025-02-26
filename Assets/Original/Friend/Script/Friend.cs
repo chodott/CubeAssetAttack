@@ -87,5 +87,19 @@ public class Friend : MonoBehaviour
         return false;
     }
 
+    public void Initialize(ScriptableFriend data)
+    {
+        SetMeshState(false);
+        _data = data;
+        SetMeshState(true);
+    }
+
+    public void SetMeshState(bool value)
+    {
+        if (_data == null) return;
+        int type = (int)_data.Type;
+        transform.GetChild(type).gameObject.SetActive(value);
+        transform.GetChild(20 + type).gameObject.SetActive(value);
+    }
 
 }

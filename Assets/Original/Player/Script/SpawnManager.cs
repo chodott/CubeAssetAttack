@@ -6,11 +6,16 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager Instance {  get; private set; }
     private ObjectPool _objectPool;
 
+    //Build
+    public Transform BuildPlatformTransform;
+
     //UI
     [SerializeField]
     private Transform _canvas;
     [SerializeField]
     private GameObject _hpbarPrefab;
+    [SerializeField]
+    private GameObject _friendPrefab;
 
     private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
@@ -38,6 +43,19 @@ public class SpawnManager : MonoBehaviour
         _objectPool.Initialize(_waveInfos);
 
         StartCoroutine(SpawnWave());
+    }
+
+    public void Build(ScriptableFriend friendData)
+    {
+        BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
+        if (buildPlatform.bCanBuild == false) return;
+        if (GameManager.Instance.PayCoin(friendData.COST) == false) return;
+
+        GameObject buildTarget = _objectPool.GetObject(_friendPrefab);
+        buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
+        Friend builtFriend = buildTarget.GetComponent<Friend>();
+        builtFriend.Initialize(friendData);
+        buildPlatform.BuiltFriend = builtFriend;
     }
 
     IEnumerator SpawnWave()

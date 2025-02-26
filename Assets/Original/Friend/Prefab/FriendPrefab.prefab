@@ -950,7 +950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5824428351877855322
 Transform:
   m_ObjectHideFlags: 0
@@ -1940,8 +1940,9 @@ GameObject:
   - component: {fileID: 5824428352053320409}
   - component: {fileID: 5824428352053320390}
   - component: {fileID: -9192343180692556087}
+  - component: {fileID: 6758305455601221150}
   m_Layer: 0
-  m_Name: GirlFriend
+  m_Name: FriendPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1960,7 +1961,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1456736453795592705}
   - {fileID: 5824428353257981985}
   - {fileID: 5824428351877855322}
   - {fileID: 5824428353306989761}
@@ -2001,6 +2001,7 @@ Transform:
   - {fileID: 5824428351682684297}
   - {fileID: 5824428351539143395}
   - {fileID: 5824428352632894697}
+  - {fileID: 1456736453795592705}
   - {fileID: 5824428353263604700}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2040,6 +2041,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _equippedWeapon: {fileID: 6840708140202737774}
   _hpUI: {fileID: 3438549267643146796}
+--- !u!114 &6758305455601221150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824428352053320391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 779b69169ca669a4084e740725bae0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 5824428352053320391}
 --- !u!1 &5824428352130491590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,7 +2231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5824428352167543389
 Transform:
   m_ObjectHideFlags: 0

@@ -53,7 +53,7 @@ public class InputManager : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, buildLayerMask))
         {
             GameObject clickedObject = hit.collider.gameObject;
-            BuildManager.Instance.BuildPlatformTransform = hit.transform;
+            SpawnManager.Instance.BuildPlatformTransform = hit.transform;
             _buildListUI.SetActive(true);
         }
         else _buildListUI.SetActive(false);
