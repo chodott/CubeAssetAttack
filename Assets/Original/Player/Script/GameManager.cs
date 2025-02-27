@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     public void GetCoin(int value)
     {
+        if (value == 0) return;
         _coinCnt += value;
         OnCoinChanged?.Invoke(_coinCnt); 
     }

@@ -92,6 +92,8 @@ public class Friend : MonoBehaviour
         SetMeshState(false);
         _data = data;
         SetMeshState(true);
+        _animator.SetFloat("Angle", -1.0f);
+
     }
 
     public void SetMeshState(bool value)

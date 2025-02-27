@@ -3,7 +3,6 @@ using UnityEngine;
 public class BuildPlatform : MonoBehaviour
 {
     private Friend _builtFriend;
-    public Friend BuiltFriend { get; set; }
     public bool bCanBuild
     {
         get
@@ -12,4 +11,18 @@ public class BuildPlatform : MonoBehaviour
         }
     }
 
+    public void BuildOnPlatform(Friend friend)
+    {
+        _builtFriend = friend;
+    }
+
+    public int SellOnPlatform()
+    {
+        if (bCanBuild) return 0;
+
+        int value = _builtFriend.Data.COST;
+        SpawnManager.Instance.GetBack(_builtFriend.gameObject);
+        _builtFriend = null;
+        return value;
+    }
 }

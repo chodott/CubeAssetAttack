@@ -55,7 +55,13 @@ public class SpawnManager : MonoBehaviour
         buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
         Friend builtFriend = buildTarget.GetComponent<Friend>();
         builtFriend.Initialize(friendData);
-        buildPlatform.BuiltFriend = builtFriend;
+        buildPlatform.BuildOnPlatform(builtFriend);
+    }
+
+    public void Sell()
+    {
+        BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
+        GameManager.Instance.GetCoin(buildPlatform.SellOnPlatform());
     }
 
     IEnumerator SpawnWave()
