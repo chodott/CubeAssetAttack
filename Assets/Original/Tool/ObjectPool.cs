@@ -11,13 +11,18 @@ public class ObjectPool : MonoBehaviour
         foreach(WaveInfo waveInfo  in waveInfos)
         {
             GameObject enemyPrefab =  Database.Instance.GetEnemyInfo(waveInfo.enemyType).EnemyPrefab;
-            _dictionaryPool.Add(enemyPrefab, new Queue<GameObject>());
-            for (int i = 0; i < _initSpawnCnt; i++)
-            {
-                GameObject newObject = Instantiate(enemyPrefab);
-                newObject.SetActive(false);
-                _dictionaryPool[enemyPrefab].Enqueue(newObject);
-            }
+            SpawnDefault(enemyPrefab);
+        }
+    }
+
+    public void SpawnDefault(GameObject prefab)
+    {
+        _dictionaryPool.Add(prefab, new Queue<GameObject>());
+        for (int i=0;i< _initSpawnCnt;++i)
+        {
+            GameObject newObject = Instantiate(prefab);
+            newObject.SetActive(false);
+            _dictionaryPool[prefab].Enqueue(newObject);
         }
     }
 

@@ -41,6 +41,8 @@ public class SpawnManager : MonoBehaviour
 
         _objectPool = GetComponent<ObjectPool>();
         _objectPool.Initialize(_waveInfos);
+        _objectPool.SpawnDefault(_hpbarPrefab);
+        _objectPool.SpawnDefault(_friendPrefab);
 
         StartCoroutine(SpawnWave());
     }
