@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _sphereCollider = GetComponent<SphereCollider>();
         _aimCamera = transform.Find("Camera").GetComponent<Camera>();
-        EquipWeapon(_equippedWeapon);
     }
 
     protected void Update()
@@ -84,10 +83,6 @@ public class Player : MonoBehaviour
         transform.Rotate(transform.right, touchY);
     }
 
-    private void EquipWeapon(Weapon weapon)
-    {
-        weapon.Equipped(_weaponTransform);
-    }
 
     //InputAction
     public void OnMove(InputValue input)

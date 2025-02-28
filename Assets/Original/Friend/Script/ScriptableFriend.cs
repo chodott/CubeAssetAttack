@@ -5,8 +5,17 @@ public class ScriptableFriend : ScriptableObject
 {
     public enum EFriendType
     { 
-      Girl = 0,
-      Ailen =1
+        Boy =0,
+        Ailen =1,
+        Girl = 2,
+        Bear = 3,
+        Soldier = 4,
+        Chicken = 5,
+        Jocker = 6,
+        Box = 7,
+        Cowboy = 9,
+        Scientist = 13,
+        Astronaut = 19
     }
 
     [SerializeField]

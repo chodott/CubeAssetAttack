@@ -3,10 +3,12 @@ using UnityEngine.UI;
 
 public class Friend : MonoBehaviour
 {
-    [SerializeField]
     private Weapon _equippedWeapon;
     private Transform _targetTransform;
+    [SerializeField]
     private Animator _animator;
+    [SerializeField]
+    private Transform _havingWeaponTransform;
     private ScriptableFriend _data;
     public ScriptableFriend Data {  get { return _data; } set { value = _data; } }
     [SerializeField]
@@ -17,9 +19,6 @@ public class Friend : MonoBehaviour
     private float _rotateSpeed = 10.0f;
     protected void Start()
     {
-        _animator = GetComponent<Animator>();
-        _animator.SetInteger("Type", _equippedWeapon.GetWeaponType());
-
         _animator.SetFloat("Angle", -1.0f);
         Vector3 firstPos = new Vector3(Camera.main.transform.position.x, transform.position.y,Camera.main.transform.position.z);
         transform.LookAt(firstPos);
@@ -93,7 +92,7 @@ public class Friend : MonoBehaviour
         _data = data;
         SetMeshState(true);
         _animator.SetFloat("Angle", -1.0f);
-
+        _animator.SetInteger("Type", _equippedWeapon.GetWeaponType());
     }
 
     public void SetMeshState(bool value)
@@ -102,6 +101,11 @@ public class Friend : MonoBehaviour
         int type = (int)_data.Type;
         transform.GetChild(type).gameObject.SetActive(value);
         transform.GetChild(20 + type).gameObject.SetActive(value);
+
+        GameObject weaponObject = _havingWeaponTransform.GetChild(type + 3).gameObject;
+        weaponObject.SetActive(value);
+        _equippedWeapon = weaponObject.GetComponent<Weapon>();
+
     }
 
 }

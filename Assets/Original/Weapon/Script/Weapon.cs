@@ -43,12 +43,6 @@ public class Weapon : MonoBehaviour
 
 
     }
-    public void Equipped(Transform parentTransform)
-    {
-        transform.position = _weaponInfo.EquipPosition;
-        transform.localRotation = _weaponInfo.EquipRotation;
-        transform.SetParent(parentTransform,false);
-    }
 
     public int GetWeaponType()
     {

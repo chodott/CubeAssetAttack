@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a001a30912f9474fb2b8acd06376db2, type: 3}
-  m_Name: GravityGunData
+  m_Name: RifleData
   m_EditorClassIdentifier: 
-  _bulletObject: {fileID: 1224549118569052, guid: ea131544ddf989945a5a630a86ceb529, type: 3}
-  _name: GravityGun
-  reloadTime: 3
-  power: 100
+  _bulletObject: {fileID: 1795072395756124, guid: eb7e6d9e3cd453a42b2b25d1632c89b5, type: 3}
+  _equipPosition: {x: 0, y: 0, z: 0}
+  _equipRotation: {x: 0, y: 0, z: 0, w: 0}
+  _name: Rifle
+  reloadTime: 0.2
+  power: 1
   _weaponType: 1
