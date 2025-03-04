@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    public static InputManager Instance { get; private set; }
+
     [SerializeField] 
     private InputActionAsset inputActions;
     private InputAction pointerPositionAction;
@@ -11,7 +14,21 @@ public class InputManager : MonoBehaviour
     private GameObject _buildListUI;
 
     private int _buildLayerMask;
-    private bool _OnMouseClick = false; 
+    private bool _OnMouseClick = false;
+
+    public UnityEvent<Vector2> ClickUI;
+
+    protected void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     protected void Start()
     {
@@ -40,16 +57,16 @@ public class InputManager : MonoBehaviour
         if (_OnMouseClick == false) return;
         _OnMouseClick = false;
         //First Check UI Click
+        Vector2 screenPosition = Mouse.current.position.ReadValue();
         if (EventSystem.current.IsPointerOverGameObject())
         {
+            ClickUI.Invoke(screenPosition);
             return;
         }
 
         else
         {
             //After Check BuildPlatform Click
-            Vector2 screenPosition = Mouse.current.position.ReadValue();
-
             Ray ray = Camera.main.ScreenPointToRay(screenPosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _buildLayerMask))
             {
