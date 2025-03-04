@@ -55,9 +55,8 @@ public class InputManager : MonoBehaviour
             {
                 GameObject clickedObject = hit.collider.gameObject;
                 SpawnManager.Instance.BuildPlatformTransform = hit.transform;
-                _buildListUI.SetActive(true);
+                SpawnManager.Instance.Build();
             }
-            else _buildListUI.SetActive(false);
         }
 
     }

@@ -3,12 +3,20 @@ using UnityEngine;
 public class BuildPlatform : MonoBehaviour
 {
     private Friend _builtFriend;
+    [SerializeField]
+    private GameObject _buildEffectObject;
     public bool bCanBuild
     {
         get
         {
             return _builtFriend == null ? true : false;
         }
+    }
+
+    public void SetBuildEffect(bool value)
+    {
+        if (!bCanBuild) value = false;
+        _buildEffectObject.SetActive(value);
     }
 
     public void BuildOnPlatform(Friend friend)

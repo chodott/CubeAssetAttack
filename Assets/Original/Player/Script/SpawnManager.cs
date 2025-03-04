@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -7,7 +8,10 @@ public class SpawnManager : MonoBehaviour
     private ObjectPool _objectPool;
 
     //Build
+    [SerializeField]
+    private List<BuildPlatform> _platforms;
     public Transform BuildPlatformTransform;
+    public ScriptableFriend BuildData;
 
     //UI
     [SerializeField]
@@ -36,7 +40,6 @@ public class SpawnManager : MonoBehaviour
 
     protected void Start()
     {
-
         _waveInfos = Database.Instance.GetWaveInfos();
 
         _objectPool = GetComponent<ObjectPool>();
@@ -47,17 +50,19 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnWave());
     }
 
-    public void Build(ScriptableFriend friendData)
+    public void Build()
     {
         BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
+        if (BuildData == null) return;
         if (buildPlatform.bCanBuild == false) return;
-        if (GameManager.Instance.PayCoin(friendData.COST) == false) return;
+        if (GameManager.Instance.PayCoin(BuildData.COST) == false) return;
 
         GameObject buildTarget = _objectPool.GetObject(_friendPrefab);
         buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
         Friend builtFriend = buildTarget.GetComponent<Friend>();
-        builtFriend.Initialize(friendData);
+        builtFriend.Initialize(BuildData);
         buildPlatform.BuildOnPlatform(builtFriend);
+        SetBuildEffects(false);
     }
 
     public void Sell()
@@ -92,5 +97,13 @@ public class SpawnManager : MonoBehaviour
     public void GetBack(GameObject gameObject)
     {
         _objectPool.ReturnObject(gameObject);
+    }
+
+    public void SetBuildEffects(bool value)
+    {
+        foreach(BuildPlatform platform in _platforms)
+        {
+            platform.SetBuildEffect(value);
+        }
     }
 }
