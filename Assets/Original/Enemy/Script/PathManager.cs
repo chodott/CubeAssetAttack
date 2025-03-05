@@ -15,6 +15,14 @@ public class PathManager : MonoBehaviour
         }
     }
 
+    protected void Start()
+    {
+        for(int i=0;i<_wayPoints.Length-1;++i)
+        {
+            _wayPoints[i].LookAt(_wayPoints[i + 1]);
+        }
+    }
+
     public Vector3 GetNextPoint(int level)
     {
         level++;
