@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class FriendUI : MonoBehaviour
 {
+    static private bool _bClickedFriendUI = false; 
+
     [SerializeField]
     private Image _thumbnail;
     private Animator _animator;
@@ -44,10 +46,12 @@ public class FriendUI : MonoBehaviour
             _animator.SetBool("Active", true);
             SpawnManager.Instance.SetBuildEffects(true);
             SpawnManager.Instance.BuildData = _data;
+            _bClickedFriendUI = true;
         }
         else
         {
             _animator.SetBool("Active", false);
+            if (_bClickedFriendUI == true) return;
             SpawnManager.Instance.SetBuildEffects(false);
             SpawnManager.Instance.BuildData = null;
         }

@@ -7105,6 +7105,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90.21
       objectReference: {fileID: 0}
+    - target: {fileID: 9132295607151142200, guid: 57b5d19c75cedb84eba076cca3a2673d, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7427,11 +7431,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4199862778138342482, guid: 9a0d628253422d041b5ba3e03dbaa0bd, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.522
       objectReference: {fileID: 0}
     - target: {fileID: 4199862778138342482, guid: 9a0d628253422d041b5ba3e03dbaa0bd, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5453301940688465055, guid: 9a0d628253422d041b5ba3e03dbaa0bd, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -7440,6 +7444,10 @@ PrefabInstance:
     - target: {fileID: 6745237144849853876, guid: 9a0d628253422d041b5ba3e03dbaa0bd, type: 3}
       propertyPath: m_Name
       value: FriendHpUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745237144849853876, guid: 9a0d628253422d041b5ba3e03dbaa0bd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7664,6 +7672,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7383332340980187515, guid: 3fd5d5da3679c9a44898a45c9862ba94, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383332340982194107, guid: 3fd5d5da3679c9a44898a45c9862ba94, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -8194,6 +8206,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5824428352993350120}
     m_Modifications:
+    - target: {fileID: 8842376448988135625, guid: 0dcf1c553e4acf7448fde13bf7383a35, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8842376448992230921, guid: 0dcf1c553e4acf7448fde13bf7383a35, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8842376448995045161, guid: 0dcf1c553e4acf7448fde13bf7383a35, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.22065039

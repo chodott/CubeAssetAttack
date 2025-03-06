@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ public class Friend : MonoBehaviour
     private float _rotateSpeed = 10.0f;
     protected void Start()
     {
-        _animator.SetFloat("Angle", -1.0f);
+        _animator.SetFloat("Angle", 0.0f);
         Vector3 firstPos = new Vector3(Camera.main.transform.position.x, transform.position.y,Camera.main.transform.position.z);
         transform.LookAt(firstPos);
 
@@ -28,16 +29,16 @@ public class Friend : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        CheckTargetInRange();
-        if (_targetTransform == null)
+        bool value = CheckTargetInRange();
+        if (value == false)
         {
             SetTarget();
         }
-        else
-        {
-            TurnToTarget(Time.deltaTime);
-            _equippedWeapon.Launch(_targetTransform);
-        }
+        
+        if (_targetTransform == null) return;
+        TurnToTarget(Time.deltaTime);
+        _equippedWeapon.Launch(_targetTransform);
+
     }
 
     private void SetTarget()

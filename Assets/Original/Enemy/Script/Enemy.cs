@@ -80,6 +80,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         _curHp = 0;
+        transform.position = Vector3.up * 5000.0f;
         GameManager.Instance.GetCoin(_enemyInfo.Reward);
         SpawnManager.Instance.GetBack(_hpUI.gameObject);
         SpawnManager.Instance.GetBack(gameObject);
