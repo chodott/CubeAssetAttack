@@ -19,8 +19,8 @@ public class ScriptableFriend : ScriptableObject
     }
 
     [SerializeField]
-    private Texture2D _thumbnail;
-    public Texture2D Thumbnail {get{return _thumbnail;}}
+    private Sprite _thumbnail;
+    public Sprite Thumbnail {get{return _thumbnail;}}
 
     [SerializeField]
     private string _name;

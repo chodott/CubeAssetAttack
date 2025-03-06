@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0990442ad6133ec40b88998165935e3c, type: 3}
   m_Name: Boy
   m_EditorClassIdentifier: 
-  _thumbnail: {fileID: 2800000, guid: 8a90cdebf1ba80f48b2876dde11b2313, type: 3}
+  _thumbnail: {fileID: 21300000, guid: 8a90cdebf1ba80f48b2876dde11b2313, type: 3}
   _name: Boy
   _attackRange: 30
   _type: 0

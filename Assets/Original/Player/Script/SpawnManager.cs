@@ -78,6 +78,7 @@ public class SpawnManager : MonoBehaviour
             WaveInfo curWave = _waveInfos[_currentWaveIndex];
             ScriptableEnemy spawnEnemyInfo = Database.Instance.GetEnemyInfo(curWave.enemyType);
             GameObject spawnEnemy = spawnEnemyInfo.EnemyPrefab;
+            yield return new WaitForSeconds(curWave.waveInterval);
 
             for (int i = 0; i < curWave.monsterCount; ++i)
             {
@@ -90,7 +91,6 @@ public class SpawnManager : MonoBehaviour
             }
 
             _currentWaveIndex += 1;
-            yield return new WaitForSeconds(curWave.waveInterval);
         }
     }
 
