@@ -15,6 +15,6 @@ MonoBehaviour:
   _thumbnail: {fileID: 21300000, guid: 26b1652ddcbedff4792266e3a6d04615, type: 3}
   _name: Girl
   _attackRange: 30
-  _type: 1
+  _type: 2
   _cost: 5
   _maxHP: 0

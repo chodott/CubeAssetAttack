@@ -15,6 +15,6 @@ MonoBehaviour:
   _thumbnail: {fileID: 21300000, guid: 447ab181ada04174cb1b5abe922b9d33, type: 3}
   _name: Bear
   _attackRange: 30
-  _type: 4
+  _type: 3
   _cost: 5
   _maxHP: 0

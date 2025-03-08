@@ -15,6 +15,6 @@ MonoBehaviour:
   _thumbnail: {fileID: 21300000, guid: 0f3206bc0af6d3c4282aec43e375d771, type: 3}
   _name: Alien
   _attackRange: 30
-  _type: 2
+  _type: 1
   _cost: 3
   _maxHP: 0

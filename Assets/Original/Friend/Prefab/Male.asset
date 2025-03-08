@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0990442ad6133ec40b88998165935e3c, type: 3}
-  m_Name: Boy
+  m_Name: Male
   m_EditorClassIdentifier: 
   _thumbnail: {fileID: 21300000, guid: 8a90cdebf1ba80f48b2876dde11b2313, type: 3}
-  _name: Boy
+  _name: Male
   _attackRange: 30
   _type: 0
   _cost: 1

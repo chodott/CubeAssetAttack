@@ -20,8 +20,8 @@ public class FriendUI : MonoBehaviour
             _costTMP.text = value.COST.ToString();
             if(Data.Thumbnail != null)
             {
-                _thumbnail.sprite = Sprite.Create(Data.Thumbnail, new Rect(0,0,Data.Thumbnail.width,Data.Thumbnail.height), new Vector2(0.5f, 0.5f));
-                _thumbnail.preserveAspect = true;
+                _thumbnail.sprite =Data.Thumbnail;
+                //_thumbnail.preserveAspect = true;
             }
         } 
     }
