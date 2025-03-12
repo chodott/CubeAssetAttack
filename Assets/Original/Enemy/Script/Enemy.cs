@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
         Vector3 position = transform.position;
         Vector3 directionVector = pointToGo - transform.position;
         directionVector.Normalize();
-        transform.position += directionVector * _enemyInfo.Speed;
+        transform.position += directionVector * _enemyInfo.Speed * Time.deltaTime;
         RotateToRoad(Time.deltaTime);
 
         _hpUI.SetPosition(transform);
