@@ -54,20 +54,36 @@ public class InputManager : MonoBehaviour
 
     protected void LateUpdate()
     {
-        if (_OnMouseClick == false) return;
         _OnMouseClick = false;
+        Vector2 inputPosition = Vector2.zero;
         //First Check UI Click
-        Vector2 screenPosition = Mouse.current.position.ReadValue();
+        if (Input.GetMouseButtonDown(0))
+        {
+            inputPosition = Input.mousePosition;
+            _OnMouseClick = true;
+        }
+        else if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == UnityEngine.TouchPhase.Began)
+            {
+                inputPosition = touch.position;
+                _OnMouseClick = true;
+            }
+        }
+
+        if (_OnMouseClick == false) return;
+
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            ClickUI.Invoke(screenPosition);
+            ClickUI.Invoke(inputPosition);
             return;
         }
 
         else
         {
             //After Check BuildPlatform Click
-            Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+            Ray ray = Camera.main.ScreenPointToRay(inputPosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _buildLayerMask))
             {
                 GameObject clickedObject = hit.collider.gameObject;
