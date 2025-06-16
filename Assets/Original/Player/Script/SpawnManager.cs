@@ -21,10 +21,36 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _friendPrefab;
 
+    public Mesh shadowMesh;
+    public Material shadowMaterial;
+    private List<Transform> targets = new();
+
     private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
     public int CurrentWave { get { return _currentWaveIndex; } }
 
+    private void LateUpdate()
+    {
+        const int MAX_INSTANCES = 1023;
+        List<Matrix4x4> matrices = new();
+
+        foreach (var t in targets)
+        {
+            if (t == null) continue;
+
+            Vector3 pos = t.position + Vector3.down * 0.05f;
+            Quaternion rot = Quaternion.Euler(90, 0, 0);
+            Vector3 scale = Vector3.one * 1.5f;
+
+            matrices.Add(Matrix4x4.TRS(pos, rot, scale));
+        }
+
+        for (int i = 0; i < matrices.Count; i += MAX_INSTANCES)
+        {
+            int count = Mathf.Min(MAX_INSTANCES, matrices.Count - i);
+            Graphics.DrawMeshInstanced(shadowMesh, 0, shadowMaterial, matrices.GetRange(i, count));
+        }
+    }
 
     protected void Awake()
     {
@@ -59,6 +85,7 @@ public class SpawnManager : MonoBehaviour
 
         GameObject buildTarget = _objectPool.GetObject(_friendPrefab);
         buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
+        targets.Add(buildTarget.transform);
         Friend builtFriend = buildTarget.GetComponent<Friend>();
         builtFriend.Initialize(BuildData);
         buildPlatform.BuildOnPlatform(builtFriend);
