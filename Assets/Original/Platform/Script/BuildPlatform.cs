@@ -5,7 +5,7 @@ public class BuildPlatform : MonoBehaviour
     private Friend _builtFriend;
     [SerializeField]
     private GameObject _buildEffectObject;
-    public bool bCanBuild
+    public bool CanBuild
     {
         get
         {
@@ -15,7 +15,7 @@ public class BuildPlatform : MonoBehaviour
 
     public void SetBuildEffect(bool value)
     {
-        if (!bCanBuild) value = false;
+        if (!CanBuild) value = false;
         _buildEffectObject.SetActive(value);
     }
 
@@ -26,7 +26,7 @@ public class BuildPlatform : MonoBehaviour
 
     public int SellOnPlatform()
     {
-        if (bCanBuild) return 0;
+        if (CanBuild) return 0;
 
         int value = _builtFriend.Data.COST;
         SpawnManager.Instance.GetBack(_builtFriend.gameObject);

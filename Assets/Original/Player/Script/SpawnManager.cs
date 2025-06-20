@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
 
     //Build
     [SerializeField]
-    private List<BuildPlatform> _platforms;
+    private List<BuildPlatform> _buildPlatforms;
     public Transform BuildPlatformTransform;
     public FriendTowerData BuildTowerData;
 
@@ -79,8 +79,9 @@ public class SpawnManager : MonoBehaviour
     public void Build()
     {
         BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
+
         if (BuildTowerData == null) return;
-        if (buildPlatform.bCanBuild == false) return;
+        if (buildPlatform.CanBuild == false) return;
         if (GameManager.Instance.PayCoin(BuildTowerData.COST) == false) return;
 
         GameObject buildTarget = _objectPool.GetObject(_friendPrefab);
@@ -128,7 +129,7 @@ public class SpawnManager : MonoBehaviour
 
     public void SetBuildEffects(bool value)
     {
-        foreach(BuildPlatform platform in _platforms)
+        foreach(BuildPlatform platform in _buildPlatforms)
         {
             platform.SetBuildEffect(value);
         }

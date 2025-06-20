@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private Transform _muzzleTransform;
     private float _reloadSaveTime;
-    private bool _bCanLaunch = true;
+    private bool _canLaunch = true;
 
     protected void Awake()
     {
@@ -21,12 +21,12 @@ public class Weapon : MonoBehaviour
     protected void Update()
     {
         //Reload
-        if(_bCanLaunch == false)
+        if(_canLaunch == false)
         {
             _reloadSaveTime += Time.deltaTime;
             if(_reloadSaveTime >= _weaponData.ReloadTime)
             {
-                _bCanLaunch = true;
+                _canLaunch = true;
                 _reloadSaveTime = 0.0f;
             }
         }
@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour
 
     public void Launch(Transform targetTransform)
     {
-        if (_bCanLaunch == false) return;
+        if (_canLaunch == false) return;
 
         Vector3 directionVector = targetTransform.position - _muzzleTransform.position;
         Vector3 spawnPos = _muzzleTransform.position;
@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
         _audioSource.Play();
         GameObject bullet = Instantiate<GameObject>(_weaponData.Bullet, spawnPos, Quaternion.LookRotation(directionVector));
         bullet.GetComponent<Bullet>().Power = _weaponData.Power;
-        _bCanLaunch = false;
+        _canLaunch = false;
         
     }
 
