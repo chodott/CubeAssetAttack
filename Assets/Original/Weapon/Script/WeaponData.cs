@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "ScriptableWeapon", menuName = "Scriptable Objects/ScriptableWeapon")]
-public class ScriptableWeapon : ScriptableObject
+[CreateAssetMenu(fileName = "WeaponData", menuName = "Scriptable Objects/WeaponData")]
+public class WeaponData : ScriptableObject
 {
+    [SerializeField]
+    private AudioClip _shootAudioClip;
+    public AudioClip ShootAudioClip { get { return _shootAudioClip; }}
+
     [SerializeField]
     private GameObject _bulletObject;
     public GameObject Bullet { get { return _bulletObject; } }
