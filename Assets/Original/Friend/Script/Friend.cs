@@ -10,9 +10,14 @@ public class Friend : MonoBehaviour
     private Animator _animator;
     [SerializeField]
     private Transform _havingWeaponTransform;
-    private ScriptableFriend _data;
-    public ScriptableFriend Data {  get { return _data; } set { value = _data; } }
+
     [SerializeField]
+    private AudioSource _audioSource;
+
+    private FriendTowerData _data;
+    public FriendTowerData Data {  get { return _data; } set { value = _data; } }
+    [SerializeField]
+
     private Slider _hpUI;
 
     private float _hp;
@@ -87,13 +92,15 @@ public class Friend : MonoBehaviour
         return false;
     }
 
-    public void Initialize(ScriptableFriend data)
+    public void Initialize(FriendTowerData data)
     {
         SetMeshState(false);
         _data = data;
         SetMeshState(true);
         _animator.SetFloat("Angle", -1.0f);
         _animator.SetInteger("Type", _equippedWeapon.GetWeaponType());
+        _audioSource.clip = data.SpawnAudioClip;
+        _audioSource.Play();
     }
 
     public void SetMeshState(bool value)

@@ -11,8 +11,8 @@ public class FriendUI : MonoBehaviour
     private Animator _animator;
     [SerializeField]
     private RectTransform _animationRectTransform;
-    private ScriptableFriend _data;
-    public ScriptableFriend Data {
+    private FriendTowerData _data;
+    public FriendTowerData Data {
         get { return _data; } 
         set {
             _data = value;
@@ -45,7 +45,7 @@ public class FriendUI : MonoBehaviour
         {
             _animator.SetBool("Active", true);
             SpawnManager.Instance.SetBuildEffects(true);
-            SpawnManager.Instance.BuildData = _data;
+            SpawnManager.Instance.BuildTowerData = _data;
             _bClickedFriendUI = true;
         }
         else
@@ -53,7 +53,7 @@ public class FriendUI : MonoBehaviour
             _animator.SetBool("Active", false);
             if (_bClickedFriendUI == true) return;
             SpawnManager.Instance.SetBuildEffects(false);
-            SpawnManager.Instance.BuildData = null;
+            SpawnManager.Instance.BuildTowerData = null;
         }
   
     }

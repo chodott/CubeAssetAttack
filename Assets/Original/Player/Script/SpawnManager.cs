@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private List<BuildPlatform> _platforms;
     public Transform BuildPlatformTransform;
-    public ScriptableFriend BuildData;
+    public FriendTowerData BuildTowerData;
 
     //UI
     [SerializeField]
@@ -79,15 +79,15 @@ public class SpawnManager : MonoBehaviour
     public void Build()
     {
         BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
-        if (BuildData == null) return;
+        if (BuildTowerData == null) return;
         if (buildPlatform.bCanBuild == false) return;
-        if (GameManager.Instance.PayCoin(BuildData.COST) == false) return;
+        if (GameManager.Instance.PayCoin(BuildTowerData.COST) == false) return;
 
         GameObject buildTarget = _objectPool.GetObject(_friendPrefab);
         buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
         targets.Add(buildTarget.transform);
         Friend builtFriend = buildTarget.GetComponent<Friend>();
-        builtFriend.Initialize(BuildData);
+        builtFriend.Initialize(BuildTowerData);
         buildPlatform.BuildOnPlatform(builtFriend);
         SetBuildEffects(false);
     }

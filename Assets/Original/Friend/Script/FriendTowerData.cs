@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ScriptableFriend", menuName = "Scriptable Objects/ScriptableFriend")]
-public class ScriptableFriend : ScriptableObject
+[CreateAssetMenu(fileName = "FriendTowerData", menuName = "Scriptable Objects/FriendTowerData")]
+public class FriendTowerData : ScriptableObject
 {
     public enum EFriendType
     { 
@@ -17,6 +17,13 @@ public class ScriptableFriend : ScriptableObject
         Scientist = 13,
         Astronaut = 19
     }
+
+    [SerializeField]
+    private AudioClip _spawnAudioClip;
+    public AudioClip SpawnAudioClip { get { return _spawnAudioClip; } }
+
+    private float volume = 1.0f;
+    public float Volume { get { return volume; } }
 
     [SerializeField]
     private Sprite _thumbnail;

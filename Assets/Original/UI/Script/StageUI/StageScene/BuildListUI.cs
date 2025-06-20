@@ -5,13 +5,13 @@ using UnityEngine;
 public class BuildListUI : MonoBehaviour
 {
     [SerializeField]
-    private List<ScriptableFriend> _friendDataList;
+    private List<FriendTowerData> _friendDataList;
     [SerializeField]
     private GameObject _friendPanelPrefab;
     
     protected void Start()
     {
-        foreach(ScriptableFriend data in _friendDataList)
+        foreach(FriendTowerData data in _friendDataList)
         {
             GameObject newPanel = Instantiate(_friendPanelPrefab);
             newPanel.transform.SetParent(transform,false);
