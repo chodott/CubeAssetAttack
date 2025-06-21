@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     protected void Start()
     {
-        Time.timeScale = 1.0f;
+        ChangeGameSpeed(1.0f);
         OnDamaged(0);
     }
 
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         IsGameOver = true;
-        Time.timeScale = 0f;
+        ChangeGameSpeed(0);
         LoseStage.Invoke();
     }
 
@@ -73,5 +73,10 @@ public class GameManager : MonoBehaviour
         if (value == 0) return;
         _coinCnt += value;
         OnCoinChanged?.Invoke(_coinCnt); 
+    }
+
+    public void ChangeGameSpeed(float value)
+    {
+        Time.timeScale = value;
     }
 }

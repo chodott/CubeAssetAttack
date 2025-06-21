@@ -15,7 +15,7 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 1963519979866558, guid: 965efd6af1fa4cd4496b9a12dd921e42, type: 3}
   _thumbnail: {fileID: 0}
   _name: Sandbag
-  _speed: 0.01
+  _speed: 10
   _power: 0
   _reward: 5
   _hp: 5
