@@ -24,6 +24,11 @@ public class Enemy : MonoBehaviour
 
     protected void Update()
     {
+        if(GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+
         float progress = Mathf.Abs(GetProgress());
         if (progress >= 0.99)
         {

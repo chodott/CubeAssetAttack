@@ -19,6 +19,11 @@ public class SceneMover : MonoBehaviour
 
     public void LoadScene(int sceneNum)
     {
-        SceneManager.LoadScene(sceneNum+1);
+        SceneManager.LoadScene(sceneNum);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

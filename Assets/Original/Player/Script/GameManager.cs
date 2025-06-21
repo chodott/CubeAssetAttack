@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private int _coinCnt = 0;
     private float _earnPerSec = 1.0f;
     private float _earnSaveTime = 0.0f;
+    public bool IsGameOver { get; private set; }
 
     //Event
     public event Action<int> OnLifeChanged;
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Application.targetFrameRate = 120;
+        QualitySettings.vSyncCount = 0;
     }
 
     protected void Update()
@@ -36,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     protected void Start()
     {
+        Time.timeScale = 1.0f;
         OnDamaged(0);
     }
 
@@ -48,6 +52,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        IsGameOver = true;
+        Time.timeScale = 0f;
         LoseStage.Invoke();
     }
 

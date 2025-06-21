@@ -34,6 +34,11 @@ public class Friend : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
+        if (GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+
         bool value = CheckTargetInRange();
         if (value == false)
         {
