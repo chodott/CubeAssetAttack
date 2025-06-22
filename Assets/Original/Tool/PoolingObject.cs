@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class PoolingObject : MonoBehaviour
+public abstract class PoolingObject : MonoBehaviour
 {
     [SerializeField]
     public GameObject Prefab;
 
     public void Activate(GameObject originalPrefab)
     {
-        GetComponent<PoolingObject>().Prefab = originalPrefab;
+        Prefab = originalPrefab;
         gameObject.SetActive(true);
     }
 

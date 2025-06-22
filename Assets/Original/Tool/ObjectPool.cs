@@ -41,7 +41,9 @@ public class ObjectPool : MonoBehaviour
     public void ReturnObject(GameObject gameObject)
     {
         gameObject.SetActive(false);
-        GameObject prefab = gameObject.GetComponent<PoolingObject>().Prefab;
+        PoolingObject poolingObject = gameObject.GetComponent<PoolingObject>();
+        poolingObject.Deactivate();
+        GameObject prefab = poolingObject.Prefab;
         _dictionaryPool[prefab].Enqueue(gameObject);
     }
 }

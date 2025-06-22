@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
 
     public Mesh shadowMesh;
     public Material shadowMaterial;
-    private List<Transform> targets = new();
+    private List<GameObject> _shadowSpawnTargets = new();
 
     private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
@@ -36,12 +36,16 @@ public class SpawnManager : MonoBehaviour
         const int MAX_INSTANCES = 1023;
         List<Matrix4x4> matrices = new();
 
-        foreach (var t in targets)
+        for (int index = _shadowSpawnTargets.Count - 1; index >= 0; --index)
         {
-            if (t == null) continue;
-
-            Vector3 pos = t.position + Vector3.down * 0.05f;
-            Quaternion rot = Quaternion.Euler(90, 0, 0);
+            if (_shadowSpawnTargets[index].activeSelf == false)
+            {
+                _shadowSpawnTargets.RemoveAt(index);
+                continue;
+            }
+            Transform targetTransform = _shadowSpawnTargets[index].transform;
+            Vector3 pos = targetTransform.position + Vector3.up * 0.05f;
+            Quaternion rot = Quaternion.Euler(0, 0, 0);
             Vector3 scale = Vector3.one * 1.5f;
 
             matrices.Add(Matrix4x4.TRS(pos, rot, scale));
@@ -93,8 +97,8 @@ public class SpawnManager : MonoBehaviour
 
         GameObject buildTarget = _objectPool.GetObject(_friendPrefab);
         buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
-        targets.Add(buildTarget.transform);
         Friend builtFriend = buildTarget.GetComponent<Friend>();
+        _shadowSpawnTargets.Add(builtFriend.gameObject);
         builtFriend.Initialize(BuildTowerData);
         buildPlatform.BuildOnPlatform(builtFriend);
         SetBuildEffects(false);
@@ -112,6 +116,7 @@ public class SpawnManager : MonoBehaviour
     {
         BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
         GameManager.Instance.GetCoin(buildPlatform.SellOnPlatform());
+        _towerControlUITransform.gameObject.SetActive(false);
     }
 
     IEnumerator SpawnWave()

@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Friend : MonoBehaviour
+public class Friend : PoolingObject
 {
     private Weapon _equippedWeapon;
     private Transform _targetTransform;
