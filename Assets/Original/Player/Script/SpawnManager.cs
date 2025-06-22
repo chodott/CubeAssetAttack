@@ -20,6 +20,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject _hpbarPrefab;
     [SerializeField]
     private GameObject _friendPrefab;
+    [SerializeField]
+    private Transform _towerControlUITransform;
 
     public Mesh shadowMesh;
     public Material shadowMaterial;
@@ -80,8 +82,13 @@ public class SpawnManager : MonoBehaviour
     {
         BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
 
+        if (buildPlatform.CanBuild == false)
+        {
+            SelectTowerFriend();
+            return;
+        }
+
         if (BuildTowerData == null) return;
-        if (buildPlatform.CanBuild == false) return;
         if (GameManager.Instance.PayCoin(BuildTowerData.COST) == false) return;
 
         GameObject buildTarget = _objectPool.GetObject(_friendPrefab);
@@ -91,6 +98,14 @@ public class SpawnManager : MonoBehaviour
         builtFriend.Initialize(BuildTowerData);
         buildPlatform.BuildOnPlatform(builtFriend);
         SetBuildEffects(false);
+    }
+
+    private void SelectTowerFriend()
+    {
+        BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
+        Vector3 worldPos = BuildPlatformTransform.position + (Vector3.up * 1.0f) + (Vector3.right * 1.0f);
+        _towerControlUITransform.transform.position = Camera.main.WorldToScreenPoint(worldPos);
+        _towerControlUITransform.gameObject.SetActive(true);
     }
 
     public void Sell()
