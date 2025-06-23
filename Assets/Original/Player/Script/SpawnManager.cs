@@ -110,6 +110,8 @@ public class SpawnManager : MonoBehaviour
         Vector3 worldPos = BuildPlatformTransform.position + (Vector3.up * 1.0f) + (Vector3.right * 1.0f);
         _towerControlUITransform.transform.position = Camera.main.WorldToScreenPoint(worldPos);
         _towerControlUITransform.gameObject.SetActive(true);
+
+        buildPlatform.BuiltFriend.OnSelected();
     }
 
     public void Sell()
@@ -117,7 +119,10 @@ public class SpawnManager : MonoBehaviour
         BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
         GameManager.Instance.GetCoin(buildPlatform.SellOnPlatform());
         _towerControlUITransform.gameObject.SetActive(false);
+
+        buildPlatform.BuiltFriend.OnUnselected();
     }
+
 
     IEnumerator SpawnWave()
     {

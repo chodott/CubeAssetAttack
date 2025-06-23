@@ -10,6 +10,8 @@ public class Friend : PoolingObject
     private Animator _animator;
     [SerializeField]
     private Transform _havingWeaponTransform;
+    [SerializeField]
+    private Transform _attackRangeTransform;
 
     [SerializeField]
     private AudioSource _audioSource;
@@ -20,6 +22,7 @@ public class Friend : PoolingObject
 
     private Slider _hpUI;
 
+    private const float RANGE_DISPLAY_SCALE = 2.0f;
     private float _hp;
     private float _attackRange = 5.0f;
     private float _rotateSpeed = 10.0f;
@@ -29,6 +32,7 @@ public class Friend : PoolingObject
         Vector3 firstPos = new Vector3(Camera.main.transform.position.x, transform.position.y,Camera.main.transform.position.z);
         transform.LookAt(firstPos);
 
+        _attackRangeTransform.localScale *= _attackRange * RANGE_DISPLAY_SCALE;
     }
 
     // Update is called once per frame
@@ -121,4 +125,13 @@ public class Friend : PoolingObject
 
     }
 
+    public void OnSelected()
+    {
+        _attackRangeTransform.gameObject.SetActive(true);
+    }
+
+    public void OnUnselected()
+    {
+        _attackRangeTransform.gameObject.SetActive(false);
+    }
 }

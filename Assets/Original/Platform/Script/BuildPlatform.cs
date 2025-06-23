@@ -3,6 +3,7 @@ using UnityEngine;
 public class BuildPlatform : MonoBehaviour
 {
     private Friend _builtFriend;
+    public Friend BuiltFriend { get { return _builtFriend; } }
     [SerializeField]
     private GameObject _buildEffectObject;
     public bool CanBuild
@@ -30,7 +31,9 @@ public class BuildPlatform : MonoBehaviour
 
         int value = _builtFriend.Data.COST;
         SpawnManager.Instance.GetBack(_builtFriend.gameObject);
+        _builtFriend.OnUnselected();
         _builtFriend = null;
         return value;
     }
+
 }
