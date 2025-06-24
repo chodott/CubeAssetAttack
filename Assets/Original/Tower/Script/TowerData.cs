@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FriendTowerData", menuName = "Scriptable Objects/FriendTowerData")]
-public class FriendTowerData : ScriptableObject
+[CreateAssetMenu(fileName = "TowerData", menuName = "Scriptable Objects/TowerData")]
+public class TowerData : ScriptableObject
 {
-    public enum EFriendType
+    public enum ETowerType
     { 
         Boy =0,
         Ailen =1,
@@ -38,8 +38,8 @@ public class FriendTowerData : ScriptableObject
     public float Range { get { return _attackRange; } }
 
     [SerializeField]
-    private EFriendType _type;
-    public EFriendType Type { get { return _type; } }
+    private ETowerType _type;
+    public ETowerType Type { get { return _type; } }
 
     [SerializeField]
     private int _cost;

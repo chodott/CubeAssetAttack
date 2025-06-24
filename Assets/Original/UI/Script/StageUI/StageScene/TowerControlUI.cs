@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class TowerControlUI : MonoBehaviour
 {
-    private Friend _selectedTower { get; set; }
+    private Tower _selectedTower { get; set; }
 
     protected void Start()
     {
-        Friend.OnTowerSold += HandleTowerSold;
+        Tower.OnTowerSold += HandleTowerSold;
     }
-    public void ShowForTower(Friend selectedTower)
+    public void ShowForTower(Tower selectedTower)
     {
         _selectedTower = selectedTower;
         Vector3 worldPos = selectedTower.transform.position + (Vector3.up * 1.0f);
@@ -16,7 +16,7 @@ public class TowerControlUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void SellFriend()
+    public void SellTower()
     {
         _selectedTower.Sell();
     }
@@ -30,7 +30,7 @@ public class TowerControlUI : MonoBehaviour
         _selectedTower = null;
         gameObject.SetActive(false);
     }
-    private void HandleTowerSold(Friend soldTower)
+    private void HandleTowerSold(Tower soldTower)
     {
         if (_selectedTower != soldTower) return;
         Deactivate();

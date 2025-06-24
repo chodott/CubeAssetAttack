@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
         _loseResultUI.UpdateUI();
     }
 
-    public void ActivateTowerControlUI(Friend selectedTower)
+    public void ActivateTowerControlUI(Tower selectedTower)
     {
         towerControlUI.ShowForTower(selectedTower);
     }

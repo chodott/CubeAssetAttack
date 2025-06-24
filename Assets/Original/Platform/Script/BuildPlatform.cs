@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class BuildPlatform : MonoBehaviour, ISelectable
 {
-    private Friend _builtFriend;
-    public Friend BuiltFriend { get { return _builtFriend; } }
+    private Tower _builtTower;
+    public Tower BuiltTower { get { return _builtTower; } }
     [SerializeField]
     private GameObject _buildEffectObject;
     [SerializeField]
@@ -15,7 +15,7 @@ public class BuildPlatform : MonoBehaviour, ISelectable
     {
         get
         {
-            return _builtFriend == null ? true : false;
+            return _builtTower == null ? true : false;
         }
     }
 
@@ -29,10 +29,10 @@ public class BuildPlatform : MonoBehaviour, ISelectable
     {
         if (CanBuild) return 0;
 
-        int value = _builtFriend.Data.COST;
-        SpawnManager.Instance.GetBack(_builtFriend.gameObject);
-        _builtFriend.OnDeselected();
-        _builtFriend = null;
+        int value = _builtTower.Data.COST;
+        SpawnManager.Instance.GetBack(_builtTower.gameObject);
+        _builtTower.OnDeselected();
+        _builtTower = null;
         return value;
     }
 

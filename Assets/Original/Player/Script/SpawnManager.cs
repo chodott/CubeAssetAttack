@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _hpbarPrefab;
     [SerializeField]
-    private GameObject _friendTowerPrefab;
+    private GameObject _towerPrefab;
 
     public Mesh shadowMesh;
     public Material shadowMaterial;
@@ -69,16 +69,16 @@ public class SpawnManager : MonoBehaviour
         _objectPool = GetComponent<ObjectPool>();
         _objectPool.Initialize(_waveInfos);
         _objectPool.SpawnDefault(_hpbarPrefab);
-        _objectPool.SpawnDefault(_friendTowerPrefab);
+        _objectPool.SpawnDefault(_towerPrefab);
 
         StartCoroutine(SpawnWave());
     }
 
-    public Friend SpawnTower(FriendTowerData towerData, Vector3 spawnPosition)
+    public Tower SpawnTower(TowerData towerData, Vector3 spawnPosition)
     {
-        Friend spawnedFriendTower = _objectPool.GetObject(_friendTowerPrefab).GetComponent<Friend>();
-        spawnedFriendTower.Initialize(towerData, spawnPosition);
-        return spawnedFriendTower;
+        Tower spawnedTowerTower = _objectPool.GetObject(_towerPrefab).GetComponent<Tower>();
+        spawnedTowerTower.Initialize(towerData, spawnPosition);
+        return spawnedTowerTower;
     }
 
     IEnumerator SpawnWave()

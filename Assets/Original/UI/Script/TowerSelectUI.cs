@@ -2,15 +2,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FriendUI : MonoBehaviour, ISelectable
+public class TowerSelectUI : MonoBehaviour, ISelectable
 {
     [SerializeField]
     private Image _thumbnail;
     private Animator _animator;
     [SerializeField]
     private RectTransform _animationRectTransform;
-    private FriendTowerData _data;
-    public FriendTowerData Data {
+    private TowerData _data;
+    public TowerData Data {
         get { return _data; } 
         set {
             _data = value;

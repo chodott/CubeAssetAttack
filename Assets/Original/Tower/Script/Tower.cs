@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Friend : PoolingObject, ISelectable
+public class Tower : PoolingObject, ISelectable
 {
-    public static event Action<Friend> OnTowerSold;
+    public static event Action<Tower> OnTowerSold;
 
     private Weapon _equippedWeapon;
     private Transform _targetTransform;
@@ -18,8 +18,8 @@ public class Friend : PoolingObject, ISelectable
     [SerializeField]
     private AudioSource _audioSource;
 
-    private FriendTowerData _data;
-    public FriendTowerData Data {  get { return _data; } set { value = _data; } }
+    private TowerData _data;
+    public TowerData Data {  get { return _data; } set { value = _data; } }
     [SerializeField]
 
     private Slider _hpUI;
@@ -103,7 +103,7 @@ public class Friend : PoolingObject, ISelectable
         return false;
     }
 
-    public void Initialize(FriendTowerData data, Vector3 spawnPosition)
+    public void Initialize(TowerData data, Vector3 spawnPosition)
     {
         SetMeshState(false);
         _data = data;

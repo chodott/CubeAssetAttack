@@ -5,10 +5,10 @@ using UnityEngine;
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance { get; private set; }
-    public FriendTowerData BuildTowerData;
+    public TowerData BuildTowerData;
 
     private Dictionary<BuildPlatform, bool> _platformHasTower = new Dictionary<BuildPlatform, bool>();
-    private Dictionary<Friend, BuildPlatform> _towerPlatformMap = new Dictionary<Friend, BuildPlatform>();
+    private Dictionary<Tower, BuildPlatform> _towerPlatformMap = new Dictionary<Tower, BuildPlatform>();
 
     [SerializeField]
     private GameManager _gameManager;
@@ -17,12 +17,12 @@ public class BuildManager : MonoBehaviour
     [SerializeField]
     private SpawnManager _spawnManager;
 
-    private Friend _selectedFriendTower;
+    private Tower _selectedTower;
 
     protected void Start()
     {
         SelectionEvents.OnSelected += HandleSelection;
-        Friend.OnTowerSold += ClearPlatform;
+        Tower.OnTowerSold += ClearPlatform;
 
         foreach(var obj in FindObjectsByType<BuildPlatform>(FindObjectsSortMode.None))
         {
@@ -37,16 +37,16 @@ public class BuildManager : MonoBehaviour
             TryBuildTower(buildPlatform);
         }
 
-        TrySelectFriendTower(selectableTarget);
-        TrySelectFriendTowerUI(selectableTarget);
+        TrySelectTower(selectableTarget);
+        TrySelectTowerUI(selectableTarget);
     }
 
-    private void TrySelectFriendTower(ISelectable selectableTarget)
+    private void TrySelectTower(ISelectable selectableTarget)
     {
-        if (selectableTarget is Friend friendTower)
+        if (selectableTarget is Tower tower)
         {
-            _selectedFriendTower = friendTower;
-            _uiManager.ActivateTowerControlUI(friendTower);
+            _selectedTower = tower;
+            _uiManager.ActivateTowerControlUI(tower);
         }
         else
         {
@@ -54,11 +54,11 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    private void TrySelectFriendTowerUI(ISelectable selectableTarget)
+    private void TrySelectTowerUI(ISelectable selectableTarget)
     {
-        if (selectableTarget is FriendUI friendUI)
+        if (selectableTarget is TowerSelectUI towerSelectUI)
         {
-            BuildTowerData = friendUI.Data;
+            BuildTowerData = towerSelectUI.Data;
             SetBuildEffects(true);
         }
         else
@@ -74,8 +74,8 @@ public class BuildManager : MonoBehaviour
         if (BuildTowerData == null) return;
         if (_gameManager.PayCoin(BuildTowerData.COST) == false) return;
 
-        Friend spawnedFriendTower = _spawnManager.SpawnTower(BuildTowerData, platform.SpawnPosition);
-        _towerPlatformMap.Add(spawnedFriendTower, platform);
+        Tower spawnedTower = _spawnManager.SpawnTower(BuildTowerData, platform.SpawnPosition);
+        _towerPlatformMap.Add(spawnedTower, platform);
         SetBuildEffects(false);
     }
 
@@ -88,8 +88,8 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    private void ClearPlatform(Friend friendTower)
+    private void ClearPlatform(Tower tower)
     {
-        _platformHasTower[_towerPlatformMap[friendTower]] = true;
+        _platformHasTower[_towerPlatformMap[tower]] = true;
     }
 }

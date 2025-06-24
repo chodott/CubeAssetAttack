@@ -2029,7 +2029,7 @@ GameObject:
   - component: {fileID: 885580756550201918}
   - component: {fileID: 1230908421238181884}
   m_Layer: 3
-  m_Name: FriendPrefab
+  m_Name: TowerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
