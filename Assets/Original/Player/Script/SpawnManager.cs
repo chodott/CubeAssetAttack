@@ -7,21 +7,13 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager Instance {  get; private set; }
     private ObjectPool _objectPool;
 
-    //Build
-    [SerializeField]
-    private List<BuildPlatform> _buildPlatforms;
-    public Transform BuildPlatformTransform;
-    public FriendTowerData BuildTowerData;
-
     //UI
     [SerializeField]
     private Transform _canvas;
     [SerializeField]
     private GameObject _hpbarPrefab;
     [SerializeField]
-    private GameObject _friendPrefab;
-    [SerializeField]
-    private Transform _towerControlUITransform;
+    private GameObject _friendTowerPrefab;
 
     public Mesh shadowMesh;
     public Material shadowMaterial;
@@ -77,52 +69,16 @@ public class SpawnManager : MonoBehaviour
         _objectPool = GetComponent<ObjectPool>();
         _objectPool.Initialize(_waveInfos);
         _objectPool.SpawnDefault(_hpbarPrefab);
-        _objectPool.SpawnDefault(_friendPrefab);
+        _objectPool.SpawnDefault(_friendTowerPrefab);
 
         StartCoroutine(SpawnWave());
     }
 
-    public void Build()
+    public void SpawnTower(FriendTowerData towerData, Vector3 spawnPosition)
     {
-        BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
-
-        if (buildPlatform.CanBuild == false)
-        {
-            SelectTowerFriend();
-            return;
-        }
-
-        if (BuildTowerData == null) return;
-        if (GameManager.Instance.PayCoin(BuildTowerData.COST) == false) return;
-
-        GameObject buildTarget = _objectPool.GetObject(_friendPrefab);
-        buildTarget.transform.position = BuildPlatformTransform.position + Vector3.up * 0.25f;
-        Friend builtFriend = buildTarget.GetComponent<Friend>();
-        _shadowSpawnTargets.Add(builtFriend.gameObject);
-        builtFriend.Initialize(BuildTowerData);
-        buildPlatform.BuildOnPlatform(builtFriend);
-        SetBuildEffects(false);
+        GameObject spawnedGameObject = _objectPool.GetObject(_friendTowerPrefab);
+        spawnedGameObject.transform.position = spawnPosition;
     }
-
-    private void SelectTowerFriend()
-    {
-        BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
-        Vector3 worldPos = BuildPlatformTransform.position + (Vector3.up * 1.0f) + (Vector3.right * 1.0f);
-        _towerControlUITransform.transform.position = Camera.main.WorldToScreenPoint(worldPos);
-        _towerControlUITransform.gameObject.SetActive(true);
-
-        buildPlatform.BuiltFriend.OnSelected();
-    }
-
-    public void Sell()
-    {
-        BuildPlatform buildPlatform = BuildPlatformTransform.GetComponent<BuildPlatform>();
-        GameManager.Instance.GetCoin(buildPlatform.SellOnPlatform());
-        _towerControlUITransform.gameObject.SetActive(false);
-
-        buildPlatform.BuiltFriend.OnUnselected();
-    }
-
 
     IEnumerator SpawnWave()
     {
@@ -150,13 +106,5 @@ public class SpawnManager : MonoBehaviour
     public void GetBack(GameObject gameObject)
     {
         _objectPool.ReturnObject(gameObject);
-    }
-
-    public void SetBuildEffects(bool value)
-    {
-        foreach(BuildPlatform platform in _buildPlatforms)
-        {
-            platform.SetBuildEffect(value);
-        }
     }
 }

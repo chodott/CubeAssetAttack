@@ -2,10 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FriendUI : MonoBehaviour
+public class FriendUI : MonoBehaviour, ISelectable
 {
-    static private bool _bClickedFriendUI = false; 
-
     [SerializeField]
     private Image _thumbnail;
     private Animator _animator;
@@ -35,27 +33,16 @@ public class FriendUI : MonoBehaviour
     protected void Start()
     {
         _animator = GetComponent<Animator>();
-
-        InputManager.Instance.ClickUI.AddListener(SelectFriend);
     }
-    public void SelectFriend(Vector2 vec2)
+
+    public void OnSelected()
     {
-        bool bClicked = RectTransformUtility.RectangleContainsScreenPoint(_animationRectTransform, vec2);
-        if(bClicked)
-        {
-            _animator.SetBool("Active", true);
-            SpawnManager.Instance.SetBuildEffects(true);
-            SpawnManager.Instance.BuildTowerData = _data;
-            _bClickedFriendUI = true;
-        }
-        else
-        {
-            _animator.SetBool("Active", false);
-            if (_bClickedFriendUI == true) return;
-            SpawnManager.Instance.SetBuildEffects(false);
-            SpawnManager.Instance.BuildTowerData = null;
-        }
-  
+        _animator.SetBool("Active", true);
+        SelectionEvents.NotifySelected(this);
     }
 
+    public void OnDeselected()
+    {
+        _animator.SetBool("Active", false);
+    }
 }

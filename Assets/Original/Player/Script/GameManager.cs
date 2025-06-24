@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     {
         ChangeGameSpeed(1.0f);
         OnDamaged(0);
+
+        Friend.OnTowerSold += GetCoin;
     }
 
     public void OnDamaged(int damage)

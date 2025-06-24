@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class BuildPlatform : MonoBehaviour
+public class BuildPlatform : MonoBehaviour, ISelectable
 {
     private Friend _builtFriend;
     public Friend BuiltFriend { get { return _builtFriend; } }
@@ -20,9 +21,11 @@ public class BuildPlatform : MonoBehaviour
         _buildEffectObject.SetActive(value);
     }
 
-    public void BuildOnPlatform(Friend friend)
+    public void BuildTower(FriendTowerData towerData)
     {
-        _builtFriend = friend;
+        _builtFriend.Initialize(towerData);
+        _builtFriend.transform.position = transform.position + Vector3.up * 0.25f;
+
     }
 
     public int SellOnPlatform()
@@ -31,9 +34,22 @@ public class BuildPlatform : MonoBehaviour
 
         int value = _builtFriend.Data.COST;
         SpawnManager.Instance.GetBack(_builtFriend.gameObject);
-        _builtFriend.OnUnselected();
+        _builtFriend.OnDeselected();
         _builtFriend = null;
         return value;
     }
 
+    public void OnSelected()
+    {
+        if(CanBuild)
+        {
+            SelectionEvents.NotifySelected(this);
+            SetBuildEffect(false);
+        }
+    }
+
+    public void OnDeselected()
+    {
+        
+    }
 }

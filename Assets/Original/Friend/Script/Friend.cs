@@ -1,9 +1,12 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Friend : PoolingObject
+public class Friend : PoolingObject, ISelectable
 {
+    public static event Action<int> OnTowerSold;
+
     private Weapon _equippedWeapon;
     private Transform _targetTransform;
     [SerializeField]
@@ -125,12 +128,20 @@ public class Friend : PoolingObject
 
     }
 
+    public void Sell()
+    {
+        int value = Data.COST;
+        SpawnManager.Instance.GetBack(gameObject);
+        OnDeselected();
+        OnTowerSold.Invoke(value);
+    }
+
     public void OnSelected()
     {
         _attackRangeTransform.gameObject.SetActive(true);
     }
 
-    public void OnUnselected()
+    public void OnDeselected()
     {
         _attackRangeTransform.gameObject.SetActive(false);
     }
