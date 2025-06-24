@@ -1,11 +1,10 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Friend : PoolingObject, ISelectable
 {
-    public static event Action<int> OnTowerSold;
+    public static event Action<Friend> OnTowerSold;
 
     private Weapon _equippedWeapon;
     private Transform _targetTransform;
@@ -104,7 +103,7 @@ public class Friend : PoolingObject, ISelectable
         return false;
     }
 
-    public void Initialize(FriendTowerData data)
+    public void Initialize(FriendTowerData data, Vector3 spawnPosition)
     {
         SetMeshState(false);
         _data = data;
@@ -113,6 +112,8 @@ public class Friend : PoolingObject, ISelectable
         _animator.SetInteger("Type", _equippedWeapon.GetWeaponType());
         _audioSource.clip = data.SpawnAudioClip;
         _audioSource.Play();
+
+        transform.position = spawnPosition;
     }
 
     public void SetMeshState(bool value)
@@ -130,15 +131,15 @@ public class Friend : PoolingObject, ISelectable
 
     public void Sell()
     {
-        int value = Data.COST;
+        OnTowerSold.Invoke(this);
         SpawnManager.Instance.GetBack(gameObject);
         OnDeselected();
-        OnTowerSold.Invoke(value);
     }
 
     public void OnSelected()
     {
         _attackRangeTransform.gameObject.SetActive(true);
+        SelectionEvents.NotifySelected(this);
     }
 
     public void OnDeselected()

@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         ChangeGameSpeed(1.0f);
         OnDamaged(0);
 
-        Friend.OnTowerSold += GetCoin;
+        Friend.OnTowerSold += SellTower;
     }
 
     public void OnDamaged(int damage)
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         else return false;
     }
 
-    public void GetCoin(int value)
+    public void ReceiveCoin(int value)
     {
         if (value == 0) return;
         _coinCnt += value;
@@ -80,5 +80,10 @@ public class GameManager : MonoBehaviour
     public void ChangeGameSpeed(float value)
     {
         Time.timeScale = value;
+    }
+
+    private void SellTower(Friend friendTower)
+    {
+        ReceiveCoin(friendTower.Data.COST);
     }
 }

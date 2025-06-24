@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildEffectObject: {fileID: 1725005881020948831}
+  spawnOffset: 0.25
 --- !u!1 &1646132527558452
 GameObject:
   m_ObjectHideFlags: 0

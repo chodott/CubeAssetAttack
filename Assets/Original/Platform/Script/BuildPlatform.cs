@@ -7,6 +7,10 @@ public class BuildPlatform : MonoBehaviour, ISelectable
     public Friend BuiltFriend { get { return _builtFriend; } }
     [SerializeField]
     private GameObject _buildEffectObject;
+    [SerializeField]
+    private float spawnOffset = 0.25f;
+
+    public Vector3 SpawnPosition { get { return transform.position + transform.up * spawnOffset; } }
     public bool CanBuild
     {
         get
@@ -19,13 +23,6 @@ public class BuildPlatform : MonoBehaviour, ISelectable
     {
         if (!CanBuild) value = false;
         _buildEffectObject.SetActive(value);
-    }
-
-    public void BuildTower(FriendTowerData towerData)
-    {
-        _builtFriend.Initialize(towerData);
-        _builtFriend.transform.position = transform.position + Vector3.up * 0.25f;
-
     }
 
     public int SellOnPlatform()

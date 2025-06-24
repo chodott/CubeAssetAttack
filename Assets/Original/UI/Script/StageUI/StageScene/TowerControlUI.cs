@@ -4,6 +4,10 @@ public class TowerControlUI : MonoBehaviour
 {
     private Friend _selectedTower { get; set; }
 
+    protected void Start()
+    {
+        Friend.OnTowerSold += HandleTowerSold;
+    }
     public void ShowForTower(Friend selectedTower)
     {
         _selectedTower = selectedTower;
@@ -20,5 +24,15 @@ public class TowerControlUI : MonoBehaviour
     public void UpgradeTower()
     {
 
+    }
+    public void Deactivate()
+    {
+        _selectedTower = null;
+        gameObject.SetActive(false);
+    }
+    private void HandleTowerSold(Friend soldTower)
+    {
+        if (_selectedTower != soldTower) return;
+        Deactivate();
     }
 }

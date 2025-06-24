@@ -7,7 +7,8 @@ public class BuildManager : MonoBehaviour
     public static BuildManager Instance { get; private set; }
     public FriendTowerData BuildTowerData;
 
-    private Dictionary<BuildPlatform, bool> _buildPlatforms;
+    private Dictionary<BuildPlatform, bool> _platformHasTower = new Dictionary<BuildPlatform, bool>();
+    private Dictionary<Friend, BuildPlatform> _towerPlatformMap = new Dictionary<Friend, BuildPlatform>();
 
     [SerializeField]
     private GameManager _gameManager;
@@ -21,10 +22,11 @@ public class BuildManager : MonoBehaviour
     protected void Start()
     {
         SelectionEvents.OnSelected += HandleSelection;
+        Friend.OnTowerSold += ClearPlatform;
 
         foreach(var obj in FindObjectsByType<BuildPlatform>(FindObjectsSortMode.None))
         {
-            _buildPlatforms.Add(obj, false);
+            _platformHasTower.Add(obj, true);
         }
     }
 
@@ -35,31 +37,59 @@ public class BuildManager : MonoBehaviour
             TryBuildTower(buildPlatform);
         }
 
-        else if(selectableTarget is Friend friendTower)
+        TrySelectFriendTower(selectableTarget);
+        TrySelectFriendTowerUI(selectableTarget);
+    }
+
+    private void TrySelectFriendTower(ISelectable selectableTarget)
+    {
+        if (selectableTarget is Friend friendTower)
         {
             _selectedFriendTower = friendTower;
             _uiManager.ActivateTowerControlUI(friendTower);
         }
+        else
+        {
+            _uiManager.DeactivateTowerControlUI();
+        }
+    }
 
-        else if(selectableTarget is FriendUI friendUI)
+    private void TrySelectFriendTowerUI(ISelectable selectableTarget)
+    {
+        if (selectableTarget is FriendUI friendUI)
         {
             BuildTowerData = friendUI.Data;
+            SetBuildEffects(true);
+        }
+        else
+        {
+            BuildTowerData = null;
+            SetBuildEffects(false);
         }
     }
 
     private void TryBuildTower(BuildPlatform platform)
     {
+        if (_platformHasTower[platform] == false) return;
+        if (BuildTowerData == null) return;
         if (_gameManager.PayCoin(BuildTowerData.COST) == false) return;
 
-        _spawnManager.SpawnTower(BuildTowerData, platform.transform.position);
+        Friend spawnedFriendTower = _spawnManager.SpawnTower(BuildTowerData, platform.SpawnPosition);
+        _towerPlatformMap.Add(spawnedFriendTower, platform);
         SetBuildEffects(false);
     }
 
     private void SetBuildEffects(bool value)
     {
-        foreach (BuildPlatform platform in _buildPlatforms.Keys)
+        foreach (var platformInfo in _platformHasTower)
         {
-            platform.SetBuildEffect(value);
+            if (platformInfo.Value == false) return;
+            platformInfo.Key.SetBuildEffect(value);
         }
+    }
+
+    private void ClearPlatform(Friend friendTower)
+    {
+        _platformHasTower[_towerPlatformMap[friendTower]] = true;
     }
 }

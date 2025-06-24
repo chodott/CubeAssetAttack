@@ -45,4 +45,6 @@ public class FriendUI : MonoBehaviour, ISelectable
     {
         _animator.SetBool("Active", false);
     }
+
+
 }

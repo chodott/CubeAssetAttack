@@ -86,7 +86,7 @@ public class Enemy : PoolingObject
     {
         _curHp = 0;
         transform.position = Vector3.up * 5000.0f;
-        GameManager.Instance.GetCoin(_enemyInfo.Reward);
+        GameManager.Instance.ReceiveCoin(_enemyInfo.Reward);
         SpawnManager.Instance.GetBack(_hpUI.gameObject);
         SpawnManager.Instance.GetBack(gameObject);
     }

@@ -20,4 +20,8 @@ public class UIManager : MonoBehaviour
     {
         towerControlUI.ShowForTower(selectedTower);
     }
+    public void DeactivateTowerControlUI()
+    {
+        towerControlUI.Deactivate();
+    }
 }

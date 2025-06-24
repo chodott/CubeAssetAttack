@@ -74,10 +74,11 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnWave());
     }
 
-    public void SpawnTower(FriendTowerData towerData, Vector3 spawnPosition)
+    public Friend SpawnTower(FriendTowerData towerData, Vector3 spawnPosition)
     {
-        GameObject spawnedGameObject = _objectPool.GetObject(_friendTowerPrefab);
-        spawnedGameObject.transform.position = spawnPosition;
+        Friend spawnedFriendTower = _objectPool.GetObject(_friendTowerPrefab).GetComponent<Friend>();
+        spawnedFriendTower.Initialize(towerData, spawnPosition);
+        return spawnedFriendTower;
     }
 
     IEnumerator SpawnWave()
