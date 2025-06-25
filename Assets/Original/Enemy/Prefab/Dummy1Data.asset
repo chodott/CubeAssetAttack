@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 199093d7378810a49ad6760f9f3dde80, type: 3}
-  m_Name: Dummy1Data
+  m_Name: SandbagData
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 1963519979866558, guid: 965efd6af1fa4cd4496b9a12dd921e42, type: 3}
   _thumbnail: {fileID: 0}
-  _name: dummy1
-  _speed: 1.2
+  _name: Sandbag
+  _speed: 10
   _power: 0
   _reward: 5
-  _hp: 30
+  _hp: 5
   _type: 1

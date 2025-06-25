@@ -4,21 +4,29 @@ using UnityEngine.UIElements;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
-    private ScriptableWeapon _weaponInfo;
+    private AudioSource _audioSource;
+    [SerializeField]
+    private WeaponData _weaponData;
     [SerializeField]
     private Transform _muzzleTransform;
     private float _reloadSaveTime;
-    private bool _bCanLaunch = true;
+    private bool _canLaunch = true;
+
+    protected void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.clip = _weaponData.ShootAudioClip;
+    }
 
     protected void Update()
     {
         //Reload
-        if(_bCanLaunch == false)
+        if(_canLaunch == false)
         {
             _reloadSaveTime += Time.deltaTime;
-            if(_reloadSaveTime >= _weaponInfo.ReloadTime)
+            if(_reloadSaveTime >= _weaponData.ReloadTime)
             {
-                _bCanLaunch = true;
+                _canLaunch = true;
                 _reloadSaveTime = 0.0f;
             }
         }
@@ -26,26 +34,20 @@ public class Weapon : MonoBehaviour
 
     public void Launch(Transform targetTransform)
     {
-        if (_bCanLaunch == false) return;
+        if (_canLaunch == false) return;
 
-        //Vector3 directionVector = launchTransform.forward;
-        //Vector3 spawnPos = launchTransform.position + directionVector * 2;
-
-
-        //new type
         Vector3 directionVector = targetTransform.position - _muzzleTransform.position;
         Vector3 spawnPos = _muzzleTransform.position;
 
-
-        GameObject bullet = Instantiate<GameObject>(_weaponInfo.Bullet, spawnPos, Quaternion.LookRotation(directionVector));
-        bullet.GetComponent<Bullet>().Power = _weaponInfo.Power;
-        _bCanLaunch = false;
-
-
+        _audioSource.Play();
+        GameObject bullet = Instantiate<GameObject>(_weaponData.Bullet, spawnPos, Quaternion.LookRotation(directionVector));
+        bullet.GetComponent<Bullet>().Power = _weaponData.Power;
+        _canLaunch = false;
+        
     }
 
     public int GetWeaponType()
     {
-        return _weaponInfo.WeaponType;
+        return _weaponData.WeaponType;
     }
 }

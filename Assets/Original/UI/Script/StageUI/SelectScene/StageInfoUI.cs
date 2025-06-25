@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class StageInfoUI : MonoBehaviour
 {
+    private const int _stageSceneIndexOffset = 2;
+
     [SerializeField]
     private EnemyListUI _enemyListUI;
     private int _stageIndex = 0;
@@ -13,6 +15,6 @@ public class StageInfoUI : MonoBehaviour
     }
     public void StartStage()
     {
-        SceneMover.Instance.LoadScene(_stageIndex+1);
+        SceneMover.Instance.LoadScene(_stageIndex+_stageSceneIndexOffset);
     }
 }

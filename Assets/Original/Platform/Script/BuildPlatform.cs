@@ -1,36 +1,52 @@
+using System;
 using UnityEngine;
 
-public class BuildPlatform : MonoBehaviour
+public class BuildPlatform : MonoBehaviour, ISelectable
 {
-    private Friend _builtFriend;
+    private Tower _builtTower;
+    public Tower BuiltTower { get { return _builtTower; } }
     [SerializeField]
     private GameObject _buildEffectObject;
-    public bool bCanBuild
+    [SerializeField]
+    private float spawnOffset = 0.25f;
+
+    public Vector3 SpawnPosition { get { return transform.position + transform.up * spawnOffset; } }
+    public bool CanBuild
     {
         get
         {
-            return _builtFriend == null ? true : false;
+            return _builtTower == null ? true : false;
         }
     }
 
     public void SetBuildEffect(bool value)
     {
-        if (!bCanBuild) value = false;
+        if (!CanBuild) value = false;
         _buildEffectObject.SetActive(value);
-    }
-
-    public void BuildOnPlatform(Friend friend)
-    {
-        _builtFriend = friend;
     }
 
     public int SellOnPlatform()
     {
-        if (bCanBuild) return 0;
+        if (CanBuild) return 0;
 
-        int value = _builtFriend.Data.COST;
-        SpawnManager.Instance.GetBack(_builtFriend.gameObject);
-        _builtFriend = null;
+        int value = _builtTower.Data.COST;
+        SpawnManager.Instance.GetBack(_builtTower.gameObject);
+        _builtTower.OnDeselected();
+        _builtTower = null;
         return value;
+    }
+
+    public void OnSelected()
+    {
+        if(CanBuild)
+        {
+            SelectionEvents.NotifySelected(this);
+            SetBuildEffect(false);
+        }
+    }
+
+    public void OnDeselected()
+    {
+        
     }
 }

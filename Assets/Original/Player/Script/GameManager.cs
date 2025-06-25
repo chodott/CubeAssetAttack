@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private int _coinCnt = 0;
     private float _earnPerSec = 1.0f;
     private float _earnSaveTime = 0.0f;
+    public bool IsGameOver { get; private set; }
 
     //Event
     public event Action<int> OnLifeChanged;
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Application.targetFrameRate = 120;
+        QualitySettings.vSyncCount = 0;
     }
 
     protected void Update()
@@ -36,7 +39,10 @@ public class GameManager : MonoBehaviour
 
     protected void Start()
     {
+        ChangeGameSpeed(1.0f);
         OnDamaged(0);
+
+        Tower.OnTowerSold += SellTower;
     }
 
     public void OnDamaged(int damage)
@@ -48,6 +54,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        IsGameOver = true;
+        ChangeGameSpeed(0);
         LoseStage.Invoke();
     }
 
@@ -62,10 +70,20 @@ public class GameManager : MonoBehaviour
         else return false;
     }
 
-    public void GetCoin(int value)
+    public void ReceiveCoin(int value)
     {
         if (value == 0) return;
         _coinCnt += value;
         OnCoinChanged?.Invoke(_coinCnt); 
+    }
+
+    public void ChangeGameSpeed(float value)
+    {
+        Time.timeScale = value;
+    }
+
+    private void SellTower(Tower tower)
+    {
+        ReceiveCoin(tower.Data.COST);
     }
 }
