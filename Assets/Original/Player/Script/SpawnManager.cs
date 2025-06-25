@@ -76,9 +76,10 @@ public class SpawnManager : MonoBehaviour
 
     public Tower SpawnTower(TowerData towerData, Vector3 spawnPosition)
     {
-        Tower spawnedTowerTower = _objectPool.GetObject(_towerPrefab).GetComponent<Tower>();
-        spawnedTowerTower.Initialize(towerData, spawnPosition);
-        return spawnedTowerTower;
+        Tower spawnedTower = _objectPool.GetObject(_towerPrefab).GetComponent<Tower>();
+        spawnedTower.Initialize(towerData, spawnPosition);
+        _shadowSpawnTargets.Add(spawnedTower.gameObject);
+        return spawnedTower;
     }
 
     IEnumerator SpawnWave()

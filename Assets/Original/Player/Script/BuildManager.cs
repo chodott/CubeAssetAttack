@@ -76,6 +76,7 @@ public class BuildManager : MonoBehaviour
 
         Tower spawnedTower = _spawnManager.SpawnTower(BuildTowerData, platform.SpawnPosition);
         _towerPlatformMap.Add(spawnedTower, platform);
+        _platformHasTower[platform] = false;
         SetBuildEffects(false);
     }
 
