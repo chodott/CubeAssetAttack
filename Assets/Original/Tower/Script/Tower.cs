@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Tower : PoolingObject, ISelectable, IBlobshadowTarget
 {
-    private static readonly float _shadowSize = 1.5f;
+    private static readonly float _shadowSize = 0.1f;
     public static event Action<Tower> OnTowerSold;
 
     private Weapon _equippedWeapon;

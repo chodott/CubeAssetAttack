@@ -17,7 +17,11 @@ public class SpawnManager : MonoBehaviour
 
     public Mesh shadowMesh;
     public Material shadowMaterial;
+    private MaterialPropertyBlock _mpb;
     private List<IBlobshadowTarget> _shadowSpawnTargets = new();
+
+    Matrix4x4[] blobShadowMatrices = new Matrix4x4[1023];
+    float[] blobShadowSizes = new float[1023];
 
     private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
@@ -49,33 +53,36 @@ public class SpawnManager : MonoBehaviour
         _objectPool.SpawnDefault(_hpbarPrefab);
         _objectPool.SpawnDefault(_towerPrefab);
 
+        _mpb = new MaterialPropertyBlock();
+
         StartCoroutine(SpawnWave());
     }
 
     private void DrawBlobShadow()
     {
-        const int MAX_INSTANCES = 1023;
-        List<Matrix4x4> matrices = new();
+        if (_shadowSpawnTargets.Count == 0) return;
+
+        int count = 0;
         for (int index = _shadowSpawnTargets.Count - 1; index >= 0; --index)
         {
-            if (_shadowSpawnTargets[index].GetActive() == false)
+            IBlobshadowTarget blobshadowTarget = _shadowSpawnTargets[index];
+            if (blobshadowTarget.GetActive() == false)
             {
                 _shadowSpawnTargets.RemoveAt(index);
                 continue;
             }
-            Transform targetTransform = _shadowSpawnTargets[index].GetTransform();
+            Transform targetTransform = blobshadowTarget.GetTransform();
             Vector3 pos = targetTransform.position + Vector3.up * 0.05f;
-            Quaternion rot = Quaternion.Euler(0, 0, 0);
-            Vector3 scale = Vector3.one * _shadowSpawnTargets[index].GetShadowSize();
 
-            matrices.Add(Matrix4x4.TRS(pos, rot, scale));
+            blobShadowMatrices[count] = Matrix4x4.TRS(pos,Quaternion.identity, Vector3.one);
+            blobShadowSizes[count] = blobshadowTarget.GetShadowSize();
+            count++;
         }
 
-        for (int i = 0; i < matrices.Count; i += MAX_INSTANCES)
-        {
-            int count = Mathf.Min(MAX_INSTANCES, matrices.Count - i);
-            Graphics.DrawMeshInstanced(shadowMesh, 0, shadowMaterial, matrices.GetRange(i, count));
-        }
+        _mpb.SetFloatArray("_ShadowSize", blobShadowSizes);
+
+        Graphics.DrawMeshInstanced(shadowMesh, 0, shadowMaterial, blobShadowMatrices, count, _mpb);
+
     }
 
     public Tower SpawnTower(TowerData towerData, Vector3 spawnPosition)
