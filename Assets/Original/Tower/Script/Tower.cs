@@ -2,8 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tower : PoolingObject, ISelectable
+public class Tower : PoolingObject, ISelectable, IBlobshadowTarget
 {
+    private static readonly float _shadowSize = 1.5f;
     public static event Action<Tower> OnTowerSold;
 
     private Weapon _equippedWeapon;
@@ -146,4 +147,20 @@ public class Tower : PoolingObject, ISelectable
     {
         _attackRangeTransform.gameObject.SetActive(false);
     }
+
+    public float GetShadowSize()
+    {
+        return _shadowSize;
+    }
+
+    public bool GetActive()
+    {
+        return gameObject.activeSelf;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
 }

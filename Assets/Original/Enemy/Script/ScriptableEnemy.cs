@@ -32,6 +32,10 @@ public class ScriptableEnemy : ScriptableObject
     public int HP { get { return _hp; } }
 
     [SerializeField]
+    private float _shadowSize;
+    public float ShadowSize { get { return _shadowSize; } }
+
+    [SerializeField]
     private int _type;
     public int Type { get { return _type; } }
 }

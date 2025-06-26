@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
 
     public Mesh shadowMesh;
     public Material shadowMaterial;
-    private List<GameObject> _shadowSpawnTargets = new();
+    private List<IBlobshadowTarget> _shadowSpawnTargets = new();
 
     private WaveInfo[] _waveInfos;
     private int _currentWaveIndex = 0;
@@ -25,29 +25,7 @@ public class SpawnManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        const int MAX_INSTANCES = 1023;
-        List<Matrix4x4> matrices = new();
-
-        for (int index = _shadowSpawnTargets.Count - 1; index >= 0; --index)
-        {
-            if (_shadowSpawnTargets[index].activeSelf == false)
-            {
-                _shadowSpawnTargets.RemoveAt(index);
-                continue;
-            }
-            Transform targetTransform = _shadowSpawnTargets[index].transform;
-            Vector3 pos = targetTransform.position + Vector3.up * 0.05f;
-            Quaternion rot = Quaternion.Euler(0, 0, 0);
-            Vector3 scale = Vector3.one * 1.5f;
-
-            matrices.Add(Matrix4x4.TRS(pos, rot, scale));
-        }
-
-        for (int i = 0; i < matrices.Count; i += MAX_INSTANCES)
-        {
-            int count = Mathf.Min(MAX_INSTANCES, matrices.Count - i);
-            Graphics.DrawMeshInstanced(shadowMesh, 0, shadowMaterial, matrices.GetRange(i, count));
-        }
+        DrawBlobShadow();
     }
 
     protected void Awake()
@@ -74,11 +52,37 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnWave());
     }
 
+    private void DrawBlobShadow()
+    {
+        const int MAX_INSTANCES = 1023;
+        List<Matrix4x4> matrices = new();
+        for (int index = _shadowSpawnTargets.Count - 1; index >= 0; --index)
+        {
+            if (_shadowSpawnTargets[index].GetActive() == false)
+            {
+                _shadowSpawnTargets.RemoveAt(index);
+                continue;
+            }
+            Transform targetTransform = _shadowSpawnTargets[index].GetTransform();
+            Vector3 pos = targetTransform.position + Vector3.up * 0.05f;
+            Quaternion rot = Quaternion.Euler(0, 0, 0);
+            Vector3 scale = Vector3.one * _shadowSpawnTargets[index].GetShadowSize();
+
+            matrices.Add(Matrix4x4.TRS(pos, rot, scale));
+        }
+
+        for (int i = 0; i < matrices.Count; i += MAX_INSTANCES)
+        {
+            int count = Mathf.Min(MAX_INSTANCES, matrices.Count - i);
+            Graphics.DrawMeshInstanced(shadowMesh, 0, shadowMaterial, matrices.GetRange(i, count));
+        }
+    }
+
     public Tower SpawnTower(TowerData towerData, Vector3 spawnPosition)
     {
         Tower spawnedTower = _objectPool.GetObject(_towerPrefab).GetComponent<Tower>();
         spawnedTower.Initialize(towerData, spawnPosition);
-        _shadowSpawnTargets.Add(spawnedTower.gameObject);
+        _shadowSpawnTargets.Add(spawnedTower);
         return spawnedTower;
     }
 
@@ -98,6 +102,7 @@ public class SpawnManager : MonoBehaviour
                 HpBarUI spawnedHpbarUI = _objectPool.GetObject(_hpbarPrefab).GetComponent<HpBarUI>();
                 spawnedHpbarUI.transform.SetParent(_canvas, false);
                 spawnedEnemy.Initialize(spawnedHpbarUI, spawnEnemyInfo);
+                _shadowSpawnTargets.Add(spawnedEnemy);
                 yield return new WaitForSeconds(curWave.spawnInterval);
             }
 

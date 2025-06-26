@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : PoolingObject
+public class Enemy : PoolingObject, IBlobshadowTarget
 {
     [SerializeField]
     private Transform _headTransform;
@@ -116,4 +116,21 @@ public class Enemy : PoolingObject
         GetComponent<PoolingObject>().Prefab = originalPrefab;
         gameObject.SetActive(true);
     }
+
+    public float GetShadowSize()
+    {
+        return _enemyInfo.ShadowSize;
+    }
+
+    public bool GetActive()
+    {
+        return gameObject.activeSelf;
+    }
+
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
 }

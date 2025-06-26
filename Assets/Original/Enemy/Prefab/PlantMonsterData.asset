@@ -19,4 +19,5 @@ MonoBehaviour:
   _power: 0
   _reward: 5
   _hp: 50
-  _type: 1
+  _shadowSize: 5
+  _type: 2
