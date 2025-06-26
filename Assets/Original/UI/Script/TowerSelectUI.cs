@@ -19,7 +19,6 @@ public class TowerSelectUI : MonoBehaviour, ISelectable
             if(Data.Thumbnail != null)
             {
                 _thumbnail.sprite =Data.Thumbnail;
-                //_thumbnail.preserveAspect = true;
             }
         } 
     }

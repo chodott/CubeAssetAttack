@@ -4,10 +4,6 @@ public class TowerControlUI : MonoBehaviour
 {
     private Tower _selectedTower { get; set; }
 
-    protected void Start()
-    {
-        Tower.OnTowerSold += HandleTowerSold;
-    }
     public void ShowForTower(Tower selectedTower)
     {
         _selectedTower = selectedTower;
@@ -19,6 +15,7 @@ public class TowerControlUI : MonoBehaviour
     public void SellTower()
     {
         _selectedTower.Sell();
+        Deactivate();
     }
 
     public void UpgradeTower()
@@ -29,10 +26,5 @@ public class TowerControlUI : MonoBehaviour
     {
         _selectedTower = null;
         gameObject.SetActive(false);
-    }
-    private void HandleTowerSold(Tower soldTower)
-    {
-        if (_selectedTower != soldTower) return;
-        Deactivate();
     }
 }

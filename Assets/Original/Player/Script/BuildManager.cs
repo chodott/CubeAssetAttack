@@ -84,7 +84,7 @@ public class BuildManager : MonoBehaviour
     {
         foreach (var platformInfo in _platformHasTower)
         {
-            if (platformInfo.Value == false) return;
+            if (platformInfo.Value == false) continue;
             platformInfo.Key.SetBuildEffect(value);
         }
     }
