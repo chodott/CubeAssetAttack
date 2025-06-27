@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a001a30912f9474fb2b8acd06376db2, type: 3}
   m_Name: GravityGunData
   m_EditorClassIdentifier: 
+  _shootAudioClip: {fileID: 8300000, guid: 809066fed790dc74591cbe4745e93e20, type: 3}
   _bulletObject: {fileID: 1224549118569052, guid: ea131544ddf989945a5a630a86ceb529, type: 3}
   _name: GravityGun
   reloadTime: 3

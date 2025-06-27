@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a001a30912f9474fb2b8acd06376db2, type: 3}
   m_Name: FlameGunData
   m_EditorClassIdentifier: 
+  _shootAudioClip: {fileID: 8300000, guid: 751d66332e2f4e24e98b916899c85f10, type: 3}
   _bulletObject: {fileID: 1254724754748870, guid: 911fdac805412a1498295768a0f6ed6a, type: 3}
   _name: 
   reloadTime: 1.5
