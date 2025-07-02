@@ -5124,7 +5124,7 @@ PrefabInstance:
       objectReference: {fileID: 1262091814923033503, guid: f2da1b86388c19d47bbb18e315fb7b86, type: 3}
     - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
       propertyPath: _towerDataList.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
       propertyPath: _friendDataList.Array.size
@@ -5133,19 +5133,27 @@ PrefabInstance:
     - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
       propertyPath: '_towerDataList.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 249102a053ef2904ebf09b3966fe9224, type: 2}
+      objectReference: {fileID: 11400000, guid: d3c188b69a6ae5744afc256d7ab5a8b1, type: 2}
     - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
       propertyPath: '_towerDataList.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 7c9286ca57c6456499d3ef7f143f533c, type: 2}
+      objectReference: {fileID: 11400000, guid: 249102a053ef2904ebf09b3966fe9224, type: 2}
     - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
       propertyPath: '_towerDataList.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: d3c188b69a6ae5744afc256d7ab5a8b1, type: 2}
+      objectReference: {fileID: 11400000, guid: 7c9286ca57c6456499d3ef7f143f533c, type: 2}
     - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
       propertyPath: '_towerDataList.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: 064d5a7a7fdaebf46833a35dbabc40ab, type: 2}
+      objectReference: {fileID: 11400000, guid: bb8f5f82b2543b142b6e63aeb60a0a28, type: 2}
+    - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
+      propertyPath: '_towerDataList.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6568e3cd4fd64104594c18177939a539, type: 2}
+    - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
+      propertyPath: '_towerDataList.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d6d119bd4d1618d45bea4ed70014e4b6, type: 2}
     - target: {fileID: 6751829518790398526, guid: a45aae85838e28548ab4c5ce201e89b7, type: 3}
       propertyPath: '_friendDataList.Array.data[0]'
       value: 
@@ -138911,11 +138919,11 @@ PrefabInstance:
     - target: {fileID: 402301932399948216, guid: 01d4bfde4c092e342920abc986f263b9, type: 3}
       propertyPath: 'EnemyInfos.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: d61d5b231831d434f80dca846cc802ac, type: 2}
+      objectReference: {fileID: 11400000, guid: 86f88a3a933e921469a46acf78f000ab, type: 2}
     - target: {fileID: 402301932399948216, guid: 01d4bfde4c092e342920abc986f263b9, type: 3}
       propertyPath: 'EnemyInfos.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: d61d5b231831d434f80dca846cc802ac, type: 2}
+      objectReference: {fileID: 11400000, guid: 3fa3fdb5b97575d4f90d4da28f49cce5, type: 2}
     - target: {fileID: 6098293265933703482, guid: 01d4bfde4c092e342920abc986f263b9, type: 3}
       propertyPath: m_Name
       value: Database

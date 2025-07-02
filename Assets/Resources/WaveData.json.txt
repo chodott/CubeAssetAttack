@@ -24,7 +24,7 @@
       "waveInfos": [
         {
           "enemyType": 1,
-          "monsterCount": 100,
+          "monsterCount": 10,
           "spawnInterval": 0.3,
           "waveInterval": 4.0
         }

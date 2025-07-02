@@ -6,8 +6,8 @@ public class TowerData : ScriptableObject
     public enum ETowerType
     { 
         Boy =0,
-        Ailen =1,
-        Girl = 2,
+        Girl =1,
+        Alien = 2,
         Bear = 3,
         Soldier = 4,
         Chicken = 5,
