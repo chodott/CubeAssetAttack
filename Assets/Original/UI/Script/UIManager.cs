@@ -3,17 +3,17 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private LoseResultUI _loseResultUI;
+    private ResultUI _loseResultUI;
     [SerializeField]
     private TowerControlUI towerControlUI; 
     protected void Start()
     {
-        GameManager.Instance.LoseStage += ShowLoseResult;
+        GameManager.Instance.LoseStage += ShowResultUI;
     }
 
-    private void ShowLoseResult()
+    private void ShowResultUI(int stageScore)
     {
-        _loseResultUI.UpdateUI();
+        _loseResultUI.UpdateResultUI(stageScore);
     }
 
     public void ActivateTowerControlUI(Tower selectedTower)

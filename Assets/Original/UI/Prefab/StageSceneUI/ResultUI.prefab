@@ -883,7 +883,7 @@ GameObject:
   - component: {fileID: 8319664175067964424}
   - component: {fileID: 5120753496518391343}
   m_Layer: 5
-  m_Name: LoseUI
+  m_Name: ResultUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -961,12 +961,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9377755400f7ae7428c32282f2821908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starImages:
-  - {fileID: 7997367249229231458}
-  - {fileID: 6602052003229173130}
-  - {fileID: 8976387938111729571}
-  filledStar: {fileID: 21300048, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
-  emptyStar: {fileID: 21300050, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  _starImages: []
+  _filledStar: {fileID: 21300048, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  _emptyStar: {fileID: 21300050, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  _textMeshPro: {fileID: 3978879979508985809}
+  _winText: "\uC2B9\uB9AC!"
+  _loseText: "\uD328\uBC30!"
 --- !u!1 &7179855816503519977
 GameObject:
   m_ObjectHideFlags: 0

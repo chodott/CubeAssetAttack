@@ -4,8 +4,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     static public GameManager Instance;
+
+    [SerializeField]
+    private int _maxLifeCnt;
     private int _lifeCnt = 10;
     private int _coinCnt = 0;
+
+    [SerializeField]
     private float _earnPerSec = 1.0f;
     private float _earnSaveTime = 0.0f;
     public bool IsGameOver { get; private set; }
@@ -13,7 +18,7 @@ public class GameManager : MonoBehaviour
     //Event
     public event Action<int> OnLifeChanged;
     public event Action<int> OnCoinChanged;
-    public event Action LoseStage;
+    public event Action<int> LoseStage;
 
     protected void Awake()
     {
@@ -56,7 +61,22 @@ public class GameManager : MonoBehaviour
     {
         IsGameOver = true;
         ChangeGameSpeed(0);
-        LoseStage.Invoke();
+        LoseStage.Invoke(CalculateStageRank());
+    }
+
+    private int CalculateStageRank()
+    {
+        switch (_lifeCnt)
+        {
+            case int n when n == _maxLifeCnt:
+                return 3;
+            case int n when n >= _maxLifeCnt / 2:
+                return 2;
+            case int n when n > 0:
+                return 1;
+            default:
+                return 0;
+        }
     }
 
     public bool PayCoin(int value)
